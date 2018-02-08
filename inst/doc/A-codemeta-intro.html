@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Carl Boettiger" />
+
+<meta name="date" content="2018-02-07" />
+
+<title>Codemeta intro</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Codemeta intro</h1>
+<h4 class="author"><em>Carl Boettiger</em></h4>
+<h4 class="date"><em>2018-02-07</em></h4>
+
+
+
+<div id="codemetar-generate-codemeta-metadata-for-r-packages" class="section level1">
+<h1>codemetar: generate codemeta metadata for R packages</h1>
+<p>The ‘Codemeta’ Project defines a ‘JSON-LD’ format for describing software metadata, as detailed at <a href="https://codemeta.github.io" class="uri">https://codemeta.github.io</a>. This package provides utilities to generate, parse, and modify codemeta.jsonld files automatically for R packages, as well as tools and examples for working with codemeta json-ld more generally.</p>
+<p>It has three main goals:</p>
+<ul>
+<li>Quickly generate a valid codemeta.json file from any valid R package To do so, we automatically extract as much metadata as possible using the DESCRIPTION file, as well as extracting metadata from other common best-practices such as the presence of Travis and other badges in README, etc.</li>
+<li>Facilitate the addition of further metadata fields into a codemeta.json file, as well as general manipulation of codemeta files.</li>
+<li>Support the ability to crosswalk between terms used in other metadata standards, as identified by the Codemeta Project Community, see <a href="https://codemeta.github.io/crosswalk" class="uri">https://codemeta.github.io/crosswalk</a></li>
+</ul>
+<p>For more general information about the CodeMeta Project for defining software metadata, see <a href="https://codemeta.github.io" class="uri">https://codemeta.github.io</a>. In particular, new users might want to start with the <a href="https://codemeta.github.io/user-guide/">User Guide</a>, while those looking to learn more about JSON-LD and consuming existing codemeta files should see the <a href="https://codemeta.github.io/developer-guide/">Developer Guide</a>.</p>
+</div>
+<div id="a-brief-intro-to-common-terms-well-use" class="section level1">
+<h1>A brief intro to common terms we’ll use:</h1>
+<ul>
+<li><p><a href="https://en.wikipedia.org/wiki/Linked_data">Linked data</a>: We often use different words to mean the same thing. And sometimes the same word to mean different things. Linked data seeks to address this issue by using <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URIs</a> (i.e. URLs) to make this explcit.</p></li>
+<li><p>context: No one likes typing out long URLs all the time. So instead, the <em>context</em> of a JSON-LD file (<code>&quot;@context&quot;</code> element) gives us the context for the terms we use, that is, the root URL. Usually schema.org but domain specific ones also (eg codemeta)</p></li>
+<li><p><a href="http://schema.org">Schema.org</a>: A major initiative led by Google and other search engines to define a simple and widely used context to link data on the web through a catalogue of standard metadata fields</p></li>
+<li><p><a href="http://codemeta.github.io">The CodeMeta Project</a>: an academic led community initiative to formalise the metadata fields included in typical software metadata records and introduce important fields that did not have clear equivalents. The codemeta <a href="https://codemeta.github.io/crosswalk">crosswalk</a> provides an explicit map between the metadata fields used by a broad range of software repositories, registries and archives</p></li>
+<li><p><a href="https://json-ld.org">JSON-LD</a>: While ‘linked data’ can be represented in many different formats, these have consistently proven a bit tricky to use, either for consumers or developers or both. JSON-LD provides a simple adaptation of the JSON format, which has proven much more popular with both audiences, that allows it to express (most) linked-data concepts. It is now the format of choice for expressing linked data by Google and many others. Any JSON-LD file is valid JSON, and any JSON file can be treated as JSON-LD.</p></li>
+<li><p><a href="https://codemeta.github.io/codemetar">codemetar</a>: The CodeMeta Project has created tools in several languages to impelement the CodeMeta Crosswalk (using JSON-LD) and help extract software metadata into <code>codemeta.json</code> records. <code>codemetar</code> is one such tool, focused on R and R packages.</p></li>
+</ul>
+<div id="installation" class="section level2">
+<h2>Installation</h2>
+<p>You can install codemetar from github with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;devtools&quot;)</span>
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;codemeta/codemetar&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;codemetar&quot;</span>)</code></pre></div>
+</div>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<p>This is a basic example which shows you how to generate a <code>codemeta.json</code> for an R package (e.g. for <code>testthat</code>):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_codemeta</span>(<span class="st">&quot;testthat&quot;</span>)</code></pre></div>
+<p><code>codemetar</code> can take the path to the package root instead. This may allow <code>codemetar</code> to glean some additional information that is not available from the description file alone.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_codemeta</span>(<span class="st">&quot;.&quot;</span>)</code></pre></div>
+<pre><code>{
+  &quot;@context&quot;: [
+    &quot;http://purl.org/codemeta/2.0&quot;,
+    &quot;http://schema.org&quot;
+  ],
+  &quot;@type&quot;: &quot;SoftwareSourceCode&quot;,
+  &quot;identifier&quot;: &quot;testthat&quot;,
+  &quot;description&quot;: &quot;Software testing is important, but, in part because it is \n    frustrating and boring, many of us avoid it. 'testthat' is a testing framework \n    for R that is easy learn and use, and integrates with your existing 'workflow'.&quot;,
+  &quot;name&quot;: &quot;testthat: Unit Testing for R&quot;,
+  &quot;issueTracker&quot;: &quot;https://github.com/r-lib/testthat/issues&quot;,
+  &quot;datePublished&quot;: &quot;2017-12-13 09:30:12 UTC&quot;,
+  &quot;license&quot;: &quot;https://spdx.org/licenses/MIT&quot;,
+  &quot;version&quot;: &quot;2.0.0&quot;,
+  &quot;programmingLanguage&quot;: {
+    &quot;@type&quot;: &quot;ComputerLanguage&quot;,
+    &quot;name&quot;: &quot;R&quot;,
+    &quot;version&quot;: &quot;3.4.3&quot;,
+    &quot;url&quot;: &quot;https://r-project.org&quot;
+  },
+  &quot;runtimePlatform&quot;: &quot;R version 3.4.3 (2017-11-30)&quot;,
+  &quot;provider&quot;: {
+    &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+    &quot;@type&quot;: &quot;Organization&quot;,
+    &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+    &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+  },
+  &quot;author&quot;: [
+    {
+      &quot;@type&quot;: &quot;Person&quot;,
+      &quot;givenName&quot;: &quot;Hadley&quot;,
+      &quot;familyName&quot;: &quot;Wickham&quot;,
+      &quot;email&quot;: &quot;hadley@rstudio.com&quot;
+    }
+  ],
+  &quot;contributor&quot;: [
+    {
+      &quot;@type&quot;: &quot;Organization&quot;,
+      &quot;name&quot;: &quot;R Core team&quot;
+    }
+  ],
+  &quot;copyrightHolder&quot;: [
+    {
+      &quot;@type&quot;: &quot;Organization&quot;,
+      &quot;name&quot;: &quot;RStudio&quot;
+    }
+  ],
+  &quot;maintainer&quot;: {
+    &quot;@type&quot;: &quot;Person&quot;,
+    &quot;givenName&quot;: &quot;Hadley&quot;,
+    &quot;familyName&quot;: &quot;Wickham&quot;,
+    &quot;email&quot;: &quot;hadley@rstudio.com&quot;
+  },
+  &quot;softwareSuggestions&quot;: [
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;covr&quot;,
+      &quot;name&quot;: &quot;covr&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;devtools&quot;,
+      &quot;name&quot;: &quot;devtools&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;knitr&quot;,
+      &quot;name&quot;: &quot;knitr&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;rmarkdown&quot;,
+      &quot;name&quot;: &quot;rmarkdown&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;xml2&quot;,
+      &quot;name&quot;: &quot;xml2&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    }
+  ],
+  &quot;softwareRequirements&quot;: [
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;cli&quot;,
+      &quot;name&quot;: &quot;cli&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;crayon&quot;,
+      &quot;name&quot;: &quot;crayon&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;digest&quot;,
+      &quot;name&quot;: &quot;digest&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;magrittr&quot;,
+      &quot;name&quot;: &quot;magrittr&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;methods&quot;,
+      &quot;name&quot;: &quot;methods&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;praise&quot;,
+      &quot;name&quot;: &quot;praise&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;R6&quot;,
+      &quot;name&quot;: &quot;R6&quot;,
+      &quot;version&quot;: &quot;2.2.0&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;rlang&quot;,
+      &quot;name&quot;: &quot;rlang&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;withr&quot;,
+      &quot;name&quot;: &quot;withr&quot;,
+      &quot;version&quot;: &quot;2.0.0&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;R&quot;,
+      &quot;name&quot;: &quot;R&quot;,
+      &quot;version&quot;: &quot;3.1&quot;
+    }
+  ]
+}</code></pre>
+</div>
+<div id="modifying-or-enriching-codemeta-metadata" class="section level2">
+<h2>Modifying or enriching CodeMeta metadata</h2>
+<p>The best way to ensure <code>codemeta.json</code> is as complete as possible is to begin by making full use of the fields that can be set in an R package DESCRIPTION file, such as <code>BugReports</code> and <code>URL</code>. Using the <code>Authors@R</code> notation allows a much richer specification of author roles, correct parsing of given vs family names, and email addresses.</p>
+<p>In the current implementation, developers may specify an ORCID url for an author in the optional <code>comment</code> field of <code>Authors@R</code>, e.g.</p>
+<pre><code>Authors@R: person(&quot;Carl&quot;, &quot;Boettiger&quot;, role=c(&quot;aut&quot;, &quot;cre&quot;, &quot;cph&quot;), email=&quot;cboettig@gmail.com&quot;, comment=&quot;http://orcid.org/0000-0002-1642-628X&quot;)</code></pre>
+<p>which will allow <code>codemetar</code> to associate an identifier with the person. This is clearly something of a hack since R’s <code>person</code> object lacks an explicit notion of <code>id</code>, and may be frowned upon.</p>
+<div id="using-the-description-file" class="section level3">
+<h3>Using the DESCRIPTION file</h3>
+<p>The DESCRIPTION file is the natural place to specify any metadata for an R package. The <code>codemetar</code> package can detect certain additional terms in the <a href="https://codemeta.github.io/terms">CodeMeta context</a>. Almost any additional codemeta field can be added to and read from the DESCRIPTION into a <code>codemeta.json</code> file (see <code>codemetar:::additional_codemeta_terms</code> for a list).</p>
+<p>CRAN requires that you prefix any additional such terms to indicate the use of <code>schema.org</code> explicitly, e.g. <code>keywords</code> would be specified in a DESCRIPTION file as:</p>
+<pre><code>X-schema.org-keywords: metadata, codemeta, ropensci, citation, credit, linked-data</code></pre>
+<p>Where applicable, these will override values otherwise guessed from the source repository. Use comma-separated lists to separate multiple values to a property, e.g. keywords.</p>
+<p>See the <a href="https://github.com/codemeta/codemetar/blob/master/DESCRIPTION">DESCRIPTION</a> file of the <code>codemetar</code> package for an example.</p>
+</div>
+</div>
+<div id="going-further" class="section level2">
+<h2>Going further</h2>
+<p>Check out all the <a href="https://codemeta.github.io/codemetar/articles/index.html">codemetar vignettes</a> for tutorials on other cool stuff you can do with codemeta and json-ld.</p>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
