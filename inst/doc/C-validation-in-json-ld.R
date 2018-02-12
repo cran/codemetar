@@ -6,6 +6,8 @@ library(codemetar)
 
 ## ----include=FALSE-------------------------------------------------------
 knitr::opts_chunk$set(comment="")
+if(grepl("windows", tolower(Sys.info()[["sysname"]])))
+  knitr::opts_chunk$set(comment="", error =TRUE)
 
 ## ------------------------------------------------------------------------
 codemeta <- 
