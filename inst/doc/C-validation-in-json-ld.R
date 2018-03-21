@@ -13,7 +13,7 @@ if(grepl("windows", tolower(Sys.info()[["sysname"]])))
 codemeta <- 
 '
 {
-  "@context": "http://purl.org/codemeta/2.0",
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "name": "codemetar: Generate CodeMeta Metadata for R Packages",
   "datePublished":" 2017-05-20",
@@ -31,11 +31,11 @@ codemeta <-
 '
 
 ## ------------------------------------------------------------------------
-jsonld::jsonld_compact(codemeta, "http://purl.org/codemeta/2.0")
+jsonld::jsonld_compact(codemeta, "https://doi.org/10.5063/schema/codemeta-2.0")
 
 ## ------------------------------------------------------------------------
 frame <- '{
-  "@context": "http://purl.org/codemeta/2.0",
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@explicit": "true",
   "@type": "Person",
   "givenName": {},
@@ -58,7 +58,7 @@ meta$maintainer
 
 ## ------------------------------------------------------------------------
 frame <- '{
-  "@context": "http://purl.org/codemeta/2.0",
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@embed": "@always"
 }'
 
@@ -92,7 +92,7 @@ meta <-
   getElement("@graph") %>% getElement(1)    
 
 ## above is same as compacting:
-#jsonld_compact(codemeta, "http://purl.org/codemeta/2.0") %>% 
+#jsonld_compact(codemeta, "https://doi.org/10.5063/schema/codemeta-2.0") %>% 
 #  fromJSON(codemeta, simplifyVector = FALSE)
 
 meta$buildInstructions

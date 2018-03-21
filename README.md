@@ -1,5 +1,5 @@
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Travis-CI Build Status](https://travis-ci.org/ropensci/codemetar.svg?branch=master)](https://travis-ci.org/ropensci/codemetar) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/cboettig/codemetar?branch=master&svg=true)](https://ci.appveyor.com/project/cboettig/codemetar) [![Coverage Status](https://img.shields.io/codecov/c/github/ropensci/codemetar/master.svg)](https://codecov.io/github/ropensci/codemetar?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/codemetar)](https://cran.r-project.org/package=codemetar) [![](http://badges.ropensci.org/130_status.svg)](https://github.com/ropensci/onboarding/issues/130) [![DOI](https://zenodo.org/badge/86626030.svg)](https://zenodo.org/badge/latestdoi/86626030)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Travis-CI Build Status](https://travis-ci.org/ropensci/codemetar.svg?branch=master)](https://travis-ci.org/ropensci/codemetar) [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/csawpip238vvbd72/branch/master?svg=true)](https://ci.appveyor.com/project/cboettig/codemetar/branch/master) [![Coverage Status](https://img.shields.io/codecov/c/github/ropensci/codemetar/master.svg)](https://codecov.io/github/ropensci/codemetar?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/codemetar)](https://cran.r-project.org/package=codemetar) [![](http://badges.ropensci.org/130_status.svg)](https://github.com/ropensci/onboarding/issues/130) [![DOI](https://zenodo.org/badge/86626030.svg)](https://zenodo.org/badge/latestdoi/86626030)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 codemetar
@@ -10,11 +10,17 @@ The goal of codemetar is to generate the JSON-LD file, `codemeta.json` containin
 Installation
 ------------
 
-You can install codemetar from github with:
+You can install the latest version from CRAN using:
+
+``` r
+install.packages("codemetar")
+```
+
+You can also install the development version of `codemetar` from github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("codemeta/codemetar")
+devtools::install_github("ropensci/codemetar")
 ```
 
 ``` r

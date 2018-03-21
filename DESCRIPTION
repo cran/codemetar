@@ -1,11 +1,17 @@
 Package: codemetar
 Type: Package
 Title: Generate 'CodeMeta' Metadata for R Packages
-Version: 0.1.4
-Authors@R: person("Carl", "Boettiger", 
+Version: 0.1.5
+Authors@R: c(person("Carl", "Boettiger", 
                   role=c("aut", "cre", "cph"), 
                   email="cboettig@gmail.com", 
-                  comment=c(ORCID = "0000-0002-1642-628X"))
+                  comment=c(ORCID = "0000-0002-1642-628X")),
+          person("Anna", "Krystalli", 
+                  role = "rev",
+                  comment=c(ORCID = "0000-0002-2378-4915")),       
+          person("Toph", "Allen", 
+                  role = "rev",
+                  comment=c(ORCID = "0000-0003-4580-091X")))
 Description: The 'Codemeta' Project defines a 'JSON-LD' format for describing
   software metadata, as detailed at <https://codemeta.github.io>. This package
   provides utilities to generate, parse, and modify 'codemeta.json' files 
@@ -28,9 +34,11 @@ X-schema.org-keywords: metadata, codemeta, ropensci, citation, credit,
 X-schema.org-isPartOf: https://ropensci.org
 X-schema.org-relatedLink: https://codemeta.github.io/codemetar
 NeedsCompilation: no
-Packaged: 2018-02-12 17:50:24 UTC; rstudio
+Packaged: 2018-03-21 22:08:48 UTC; cboettig
 Author: Carl Boettiger [aut, cre, cph]
-    (<https://orcid.org/0000-0002-1642-628X>)
+    (<https://orcid.org/0000-0002-1642-628X>),
+  Anna Krystalli [rev] (<https://orcid.org/0000-0002-2378-4915>),
+  Toph Allen [rev] (<https://orcid.org/0000-0003-4580-091X>)
 Maintainer: Carl Boettiger <cboettig@gmail.com>
 Repository: CRAN
-Date/Publication: 2018-02-12 18:29:20 UTC
+Date/Publication: 2018-03-21 22:29:09 UTC

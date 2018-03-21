@@ -6,8 +6,8 @@ testthat::test_that("we can generate codemeta
                     from the root directory of R source code on github",
   {
 
-
-    git2r::clone("https://github.com/codemeta/codemetar",
+    skip_on_cran()
+    git2r::clone("https://github.com/ropensci/codemetar",
                  "codemetar_copy", progress = FALSE)
 
     if(as.character(Sys.info()['sysname']) == "Windows"){

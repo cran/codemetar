@@ -12,7 +12,7 @@
 
 <meta name="author" content="Carl Boettiger" />
 
-<meta name="date" content="2018-02-12" />
+<meta name="date" content="2018-03-21" />
 
 <title>Parsing Codemeta Data</title>
 
@@ -20,46 +20,256 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 </head>
 
@@ -70,97 +280,97 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Parsing Codemeta Data</h1>
 <h4 class="author"><em>Carl Boettiger</em></h4>
-<h4 class="date"><em>2018-02-12</em></h4>
+<h4 class="date"><em>2018-03-21</em></h4>
 
 
 
 <p>Here we illustrate some example use cases that involve parsing codemeta data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(jsonld)
-<span class="kw">library</span>(jsonlite)
-<span class="kw">library</span>(magrittr)
-<span class="kw">library</span>(codemetar)
-<span class="kw">library</span>(purrr)
-<span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(printr)
-<span class="kw">library</span>(tibble)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(jsonld)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(jsonlite)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(codemetar)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(purrr)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(printr)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(tibble)</a></code></pre></div>
 <p>We start with a simple example from the <code>codemeta.json</code> file of <code>codemetar</code> itself. First, we’ll just generate a copy of the codemeta record for the package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_codemeta</span>(<span class="st">&quot;codemetar&quot;</span>, <span class="st">&quot;codemeta.json&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">write_codemeta</span>(<span class="st">&quot;codemetar&quot;</span>, <span class="st">&quot;codemeta.json&quot;</span>)</a></code></pre></div>
 <p>We then digest this input using a JSON-LD “frame.” While not strictly necessary, this helps ensure the data matches the format we expect, even if the original file had errors or missing data. See the vignette “Validating in JSON-LD” in this package and the official <a href="https://json-ld.org/spec/latest/json-ld-framing/">JSON-LD docs</a> for details). The <code>codemetar</code> package includes a reasonably explicit frame to get us started:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frame &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;schema/frame_schema.json&quot;</span>, <span class="dt">package=</span><span class="st">&quot;codemetar&quot;</span>)
-
-meta &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">jsonld_frame</span>(<span class="st">&quot;codemeta.json&quot;</span>, frame) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">fromJSON</span>(<span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">getElement</span>(<span class="st">&quot;@graph&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">getElement</span>(<span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">frame &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;schema/frame_schema.json&quot;</span>, <span class="dt">package=</span><span class="st">&quot;codemetar&quot;</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">meta &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="kw">jsonld_frame</span>(<span class="st">&quot;codemeta.json&quot;</span>, frame) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw">fromJSON</span>(<span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">getElement</span>(<span class="st">&quot;@graph&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">getElement</span>(<span class="dv">1</span>)</a></code></pre></div>
 <p>Construct a citation</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">authors &lt;-<span class="st"> </span>
-<span class="kw">lapply</span>(meta<span class="op">$</span>author, 
-       <span class="cf">function</span>(author) 
-         <span class="kw">person</span>(<span class="dt">given =</span> author<span class="op">$</span>given, 
-                <span class="dt">family =</span> author<span class="op">$</span>family, 
-                <span class="dt">email =</span> author<span class="op">$</span>email,
-                <span class="dt">role =</span> <span class="st">&quot;aut&quot;</span>))
-year &lt;-<span class="st"> </span>meta<span class="op">$</span>datePublished
-<span class="cf">if</span>(<span class="kw">is.null</span>(year)) 
-  year &lt;-<span class="st"> </span><span class="kw">format</span>(<span class="kw">Sys.Date</span>(), <span class="st">&quot;%Y&quot;</span>)
-bibitem &lt;-<span class="st"> </span>
-<span class="st"> </span><span class="kw">bibentry</span>(
-     <span class="dt">bibtype =</span> <span class="st">&quot;Manual&quot;</span>,
-     <span class="dt">title =</span> meta<span class="op">$</span>name,
-     <span class="dt">author =</span> authors,
-     <span class="dt">year =</span> year,
-     <span class="dt">note =</span> <span class="kw">paste0</span>(<span class="st">&quot;R package version &quot;</span>, meta<span class="op">$</span>version),
-     <span class="dt">url =</span> meta<span class="op">$</span>URL,
-     <span class="dt">key =</span> meta<span class="op">$</span>identifier
-   )</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">authors &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">lapply</span>(meta<span class="op">$</span>author, </a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">       <span class="cf">function</span>(author) </a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">         <span class="kw">person</span>(<span class="dt">given =</span> author<span class="op">$</span>given, </a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">                <span class="dt">family =</span> author<span class="op">$</span>family, </a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">                <span class="dt">email =</span> author<span class="op">$</span>email,</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">                <span class="dt">role =</span> <span class="st">&quot;aut&quot;</span>))</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">year &lt;-<span class="st"> </span>meta<span class="op">$</span>datePublished</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="cf">if</span>(<span class="kw">is.null</span>(year)) </a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">  year &lt;-<span class="st"> </span><span class="kw">format</span>(<span class="kw">Sys.Date</span>(), <span class="st">&quot;%Y&quot;</span>)</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">bibitem &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="st"> </span><span class="kw">bibentry</span>(</a>
+<a class="sourceLine" id="cb4-13" data-line-number="13">     <span class="dt">bibtype =</span> <span class="st">&quot;Manual&quot;</span>,</a>
+<a class="sourceLine" id="cb4-14" data-line-number="14">     <span class="dt">title =</span> meta<span class="op">$</span>name,</a>
+<a class="sourceLine" id="cb4-15" data-line-number="15">     <span class="dt">author =</span> authors,</a>
+<a class="sourceLine" id="cb4-16" data-line-number="16">     <span class="dt">year =</span> year,</a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">     <span class="dt">note =</span> <span class="kw">paste0</span>(<span class="st">&quot;R package version &quot;</span>, meta<span class="op">$</span>version),</a>
+<a class="sourceLine" id="cb4-18" data-line-number="18">     <span class="dt">url =</span> meta<span class="op">$</span>URL,</a>
+<a class="sourceLine" id="cb4-19" data-line-number="19">     <span class="dt">key =</span> meta<span class="op">$</span>identifier</a>
+<a class="sourceLine" id="cb4-20" data-line-number="20">   )</a></code></pre></div>
 <pre><code>Warning in bibentry(bibtype = &quot;Manual&quot;, title = meta$name, author =
 authors, : Not all arguments are of the same length, the following need to
 be recycled: author</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="kw">format</span>(bibitem, <span class="st">&quot;bibtex&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">cat</span>(<span class="kw">format</span>(bibitem, <span class="st">&quot;bibtex&quot;</span>))</a></code></pre></div>
 <pre><code>@Manual{codemetar,
   title = {codemetar: Generate 'CodeMeta' Metadata for R Packages},
   year = {2018},
-  note = {R package version 0.1.4},
+  note = {R package version 0.1.5},
 }</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bibitem</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">bibitem</a></code></pre></div>
 <pre><code>(2018). _codemetar: Generate 'CodeMeta' Metadata for R Packages_.
-R package version 0.1.4.</code></pre>
+R package version 0.1.5.</code></pre>
 <div id="parsing-the-ropensci-corpus" class="section level2">
 <h2>Parsing the ropensci corpus</h2>
 <p>The ropensci corpus consists of a list of codemeta files for all packages provided by the rOpenSci project, &lt;ropensci.org&gt;. This provides a good test-case for how a large collection of codemeta files can be manipulated to help us get a better picture of the corpus.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;https://github.com/codemeta/codemetar/raw/master/inst/notebook/ropensci.json&quot;</span>,
-              <span class="st">&quot;ropensci.json&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">download.file</span>(<span class="st">&quot;https://github.com/codemeta/codemetar/raw/master/inst/notebook/ropensci.json&quot;</span>,</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">              <span class="st">&quot;ropensci.json&quot;</span>)</a></code></pre></div>
 <p>As before, it is helpful, though not essential, to start off by framing the input data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frame &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;schema/frame_schema.json&quot;</span>, <span class="dt">package=</span><span class="st">&quot;codemetar&quot;</span>)
-
-corpus &lt;-<span class="st"> </span>
-<span class="st">    </span><span class="kw">jsonld_frame</span>(<span class="st">&quot;ropensci.json&quot;</span>, frame) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">fromJSON</span>(<span class="dt">simplifyVector =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">getElement</span>(<span class="st">&quot;@graph&quot;</span>) </code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">frame &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;schema/frame_schema.json&quot;</span>, <span class="dt">package=</span><span class="st">&quot;codemetar&quot;</span>)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">corpus &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="st">    </span><span class="kw">jsonld_frame</span>(<span class="st">&quot;ropensci.json&quot;</span>, frame) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="st">    </span><span class="kw">fromJSON</span>(<span class="dt">simplifyVector =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="st">    </span><span class="kw">getElement</span>(<span class="st">&quot;@graph&quot;</span>) </a></code></pre></div>
 <p>We’re now ready to start exploring. As usual, functions from <code>purrr</code> prove very useful for iterating through large JSON files. First, we look at some basic summary data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## deal with nulls explicitly by starting with map
-pkgs &lt;-<span class="st"> </span><span class="kw">map</span>(corpus, <span class="st">&quot;name&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compact</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.character</span>()
-
-<span class="co"># keep only those with package identifiers (names)</span>
-keep &lt;-<span class="st"> </span><span class="kw">map_lgl</span>(corpus, <span class="op">~</span><span class="st"> </span><span class="kw">length</span>(.x<span class="op">$</span>identifier) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
-corpus &lt;-<span class="st"> </span>corpus[keep]
-
-## now we can just do
-all_pkgs &lt;-<span class="st"> </span><span class="kw">map_chr</span>(corpus, <span class="st">&quot;name&quot;</span>)
-<span class="kw">head</span>(all_pkgs)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">## deal with nulls explicitly by starting with map</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">pkgs &lt;-<span class="st"> </span><span class="kw">map</span>(corpus, <span class="st">&quot;name&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compact</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.character</span>()</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co"># keep only those with package identifiers (names)</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">keep &lt;-<span class="st"> </span><span class="kw">map_lgl</span>(corpus, <span class="op">~</span><span class="st"> </span><span class="kw">length</span>(.x<span class="op">$</span>identifier) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">corpus &lt;-<span class="st"> </span>corpus[keep]</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8">## now we can just do</a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">all_pkgs &lt;-<span class="st"> </span><span class="kw">map_chr</span>(corpus, <span class="st">&quot;name&quot;</span>)</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="kw">head</span>(all_pkgs)</a></code></pre></div>
 <pre><code>[1] &quot;AntWeb: programmatic interface to the AntWeb&quot;                                
 [2] &quot;aRxiv: Interface to the arXiv API&quot;                                           
 [3] &quot;chromer: Interface to Chromosome Counts Database API&quot;                        
 [4] &quot;ckanr: Client for the Comprehensive Knowledge Archive Network ('CKAN') 'API'&quot;
 [5] &quot;dashboard: A package status dashboard&quot;                                       
 [6] &quot;ggit: Git Graphics&quot;                                                          </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 60 unique maintainers
-<span class="kw">map_chr</span>(corpus, <span class="kw">c</span>(<span class="st">&quot;maintainer&quot;</span>, <span class="st">&quot;familyName&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unique</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">length</span>()</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">## 60 unique maintainers</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">map_chr</span>(corpus, <span class="kw">c</span>(<span class="st">&quot;maintainer&quot;</span>, <span class="st">&quot;familyName&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unique</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">length</span>()</a></code></pre></div>
 <pre><code>[1] 61</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Mostly Scott
-<span class="kw">map_chr</span>(corpus, <span class="kw">c</span>(<span class="st">&quot;maintainer&quot;</span>, <span class="st">&quot;familyName&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(value) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tally</span>(<span class="dt">sort=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">## Mostly Scott</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">map_chr</span>(corpus, <span class="kw">c</span>(<span class="st">&quot;maintainer&quot;</span>, <span class="st">&quot;familyName&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="st">  </span><span class="kw">tally</span>(<span class="dt">sort=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -415,11 +625,11 @@ all_pkgs &lt;-<span class="st"> </span><span class="kw">map_chr</span>(corpus, <
 </tr>
 </tbody>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## number of co-authors ... 
-<span class="kw">map_int</span>(corpus, <span class="cf">function</span>(r) <span class="kw">length</span>(r<span class="op">$</span>author)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(value) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tally</span>(<span class="dt">sort=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">## number of co-authors ... </a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">map_int</span>(corpus, <span class="cf">function</span>(r) <span class="kw">length</span>(r<span class="op">$</span>author)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="st">  </span><span class="kw">tally</span>(<span class="dt">sort=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -458,11 +668,11 @@ all_pkgs &lt;-<span class="st"> </span><span class="kw">map_chr</span>(corpus, <
 </tr>
 </tbody>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Contributors isn't used as much...
-<span class="kw">map_int</span>(corpus, <span class="cf">function</span>(r) <span class="kw">length</span>(r<span class="op">$</span>contributor)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(value) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tally</span>(<span class="dt">sort=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">## Contributors isn't used as much...</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">map_int</span>(corpus, <span class="cf">function</span>(r) <span class="kw">length</span>(r<span class="op">$</span>contributor)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="st">  </span><span class="kw">tally</span>(<span class="dt">sort=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -502,10 +712,10 @@ all_pkgs &lt;-<span class="st"> </span><span class="kw">map_chr</span>(corpus, <
 </tbody>
 </table>
 <p>Numbers (n) of packages with a total of (value) dependencies:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_int</span>(corpus, <span class="cf">function</span>(r) <span class="kw">length</span>(r<span class="op">$</span>softwareRequirements))  <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(value) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tally</span>(<span class="dt">sort=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">map_int</span>(corpus, <span class="cf">function</span>(r) <span class="kw">length</span>(r<span class="op">$</span>softwareRequirements))  <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw">tally</span>(<span class="dt">sort=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -593,24 +803,24 @@ all_pkgs &lt;-<span class="st"> </span><span class="kw">map_chr</span>(corpus, <
 </tbody>
 </table>
 <p>which dependencies are used most frequently?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corpus <span class="op">%&gt;%</span>
-<span class="kw">map_df</span>(<span class="cf">function</span>(x){
-  ## single, unboxed dep
-  <span class="cf">if</span>(<span class="st">&quot;name&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(x<span class="op">$</span>softwareRequirements))
-    dep &lt;-<span class="st"> </span>x<span class="op">$</span>name
-  <span class="cf">else</span> <span class="cf">if</span>(<span class="st">&quot;name&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(x<span class="op">$</span>softwareRequirements[[<span class="dv">1</span>]]))
-    dep &lt;-<span class="st"> </span><span class="kw">map_chr</span>(x<span class="op">$</span>softwareRequirements, <span class="st">&quot;name&quot;</span>)
-  <span class="cf">else</span> { ## No requirementsß
-    dep &lt;-<span class="st"> </span><span class="ot">NA</span>
-  }
-  
-  <span class="kw">tibble</span>(<span class="dt">identifier =</span> x<span class="op">$</span>identifier, <span class="dt">dep =</span> dep)
-}) -&gt;<span class="st"> </span>dep_df
-
-
-dep_df <span class="op">%&gt;%</span>
-<span class="kw">group_by</span>(dep) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">tally</span>(<span class="dt">sort =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">corpus <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="kw">map_df</span>(<span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">  ## single, unboxed dep</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">  <span class="cf">if</span>(<span class="st">&quot;name&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(x<span class="op">$</span>softwareRequirements))</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">    dep &lt;-<span class="st"> </span>x<span class="op">$</span>name</a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">  <span class="cf">else</span> <span class="cf">if</span>(<span class="st">&quot;name&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(x<span class="op">$</span>softwareRequirements[[<span class="dv">1</span>]]))</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">    dep &lt;-<span class="st"> </span><span class="kw">map_chr</span>(x<span class="op">$</span>softwareRequirements, <span class="st">&quot;name&quot;</span>)</a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">  <span class="cf">else</span> { ## No requirementsß</a>
+<a class="sourceLine" id="cb20-9" data-line-number="9">    dep &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10">  }</a>
+<a class="sourceLine" id="cb20-11" data-line-number="11">  </a>
+<a class="sourceLine" id="cb20-12" data-line-number="12">  <span class="kw">tibble</span>(<span class="dt">identifier =</span> x<span class="op">$</span>identifier, <span class="dt">dep =</span> dep)</a>
+<a class="sourceLine" id="cb20-13" data-line-number="13">}) -&gt;<span class="st"> </span>dep_df</a>
+<a class="sourceLine" id="cb20-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb20-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb20-16" data-line-number="16">dep_df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-17" data-line-number="17"><span class="kw">group_by</span>(dep) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-18" data-line-number="18"><span class="st">  </span><span class="kw">tally</span>(<span class="dt">sort =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1514,17 +1724,17 @@ dep_df <span class="op">%&gt;%</span>
 </tbody>
 </table>
 <p>Alternate approach using a frame instead of <code>purrr</code> functions for subsetting the data. Note that this gets all Depends and suggests (really all <code>SoftwareApplication</code> types mentioned)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dep_frame &lt;-<span class="st"> '{</span>
-<span class="st">  &quot;@context&quot;: &quot;https://raw.githubusercontent.com/codemeta/codemeta/master/codemeta.jsonld&quot;,</span>
-<span class="st">  &quot;@explicit&quot;: &quot;true&quot;,</span>
-<span class="st">  &quot;name&quot;: {}</span>
-<span class="st">}'</span>
-<span class="kw">jsonld_frame</span>(<span class="st">&quot;ropensci.json&quot;</span>, dep_frame) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">fromJSON</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">getElement</span>(<span class="st">&quot;@graph&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;SoftwareApplication&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">tally</span>(<span class="dt">sort =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">dep_frame &lt;-<span class="st"> '{</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  &quot;@context&quot;: &quot;https://raw.githubusercontent.com/codemeta/codemeta/master/codemeta.jsonld&quot;,</span></a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="st">  &quot;@explicit&quot;: &quot;true&quot;,</span></a>
+<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="st">  &quot;name&quot;: {}</span></a>
+<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="st">}'</span></a>
+<a class="sourceLine" id="cb21-6" data-line-number="6"><span class="kw">jsonld_frame</span>(<span class="st">&quot;ropensci.json&quot;</span>, dep_frame) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-7" data-line-number="7"><span class="st">  </span><span class="kw">fromJSON</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-8" data-line-number="8"><span class="st">  </span><span class="kw">getElement</span>(<span class="st">&quot;@graph&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-9" data-line-number="9"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;SoftwareApplication&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-10" data-line-number="10"><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-11" data-line-number="11"><span class="st">  </span><span class="kw">tally</span>(<span class="dt">sort =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -2679,7 +2889,7 @@ dep_df <span class="op">%&gt;%</span>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  summarise(count(name))</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co">#  summarise(count(name))</span></a></code></pre></div>
 </div>
 
 
