@@ -5,7 +5,8 @@
 \title{create_codemeta}
 \usage{
 create_codemeta(pkg = ".", root = ".", id = NULL,
-  force_update = getOption("codemeta_force_update", TRUE), ...)
+  force_update = getOption("codemeta_force_update", TRUE), verbose = TRUE,
+  ...)
 }
 \arguments{
 \item{pkg}{package path to package root, or package name, or
@@ -18,6 +19,8 @@ to package root. Default guess is current dir.}
 
 \item{force_update}{Update guessed fields even if they are defined in an existing codemeta.json file}
 
+\item{verbose}{Whether to print messages indicating opinions e.g. when DESCRIPTION has no URL. See \code{\link{give_opinions}}.}
+
 \item{...}{additional arguments to \code{\link{write_json}}}
 }
 \value{
@@ -29,6 +32,8 @@ to \code{\link{write_codemeta}}, but returns an R list object rather
 than writing directly to a file.  See examples.
 }
 \examples{
+\donttest{
 cm <- create_codemeta("jsonlite")
 cm$keywords <- list("metadata", "ropensci")
+}
 }

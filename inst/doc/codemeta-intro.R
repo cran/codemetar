@@ -14,7 +14,7 @@ library("codemetar")
 write_codemeta("testthat")
 
 ## ------------------------------------------------------------------------
-write_codemeta(".")
+write_codemeta(find.package("codemetar"))
 
 ## ----echo = FALSE--------------------------------------------------------
 cat(readLines("codemeta.json"), sep="\n")

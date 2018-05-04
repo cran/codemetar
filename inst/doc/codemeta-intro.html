@@ -12,7 +12,7 @@
 
 <meta name="author" content="Carl Boettiger" />
 
-<meta name="date" content="2018-03-21" />
+<meta name="date" content="2018-05-04" />
 
 <title>Codemeta intro</title>
 
@@ -280,7 +280,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Codemeta intro</h1>
 <h4 class="author"><em>Carl Boettiger</em></h4>
-<h4 class="date"><em>2018-03-21</em></h4>
+<h4 class="date"><em>2018-05-04</em></h4>
 
 
 
@@ -317,60 +317,131 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>This is a basic example which shows you how to generate a <code>codemeta.json</code> for an R package (e.g. for <code>testthat</code>):</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">write_codemeta</span>(<span class="st">&quot;testthat&quot;</span>)</a></code></pre></div>
 <p><code>codemetar</code> can take the path to the package root instead. This may allow <code>codemetar</code> to glean some additional information that is not available from the description file alone.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">write_codemeta</span>(<span class="st">&quot;.&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">write_codemeta</span>(<span class="kw">find.package</span>(<span class="st">&quot;codemetar&quot;</span>))</a></code></pre></div>
 <pre><code>{
-  &quot;@context&quot;: [
-    &quot;https://doi.org/10.5063/schema/codemeta-2.0&quot;,
-    &quot;http://schema.org&quot;
-  ],
+  &quot;@context&quot;: [&quot;https://doi.org/10.5063/schema/codemeta-2.0&quot;, &quot;http://schema.org&quot;],
   &quot;@type&quot;: &quot;SoftwareSourceCode&quot;,
-  &quot;identifier&quot;: &quot;testthat&quot;,
-  &quot;description&quot;: &quot;Software testing is important, but, in part because it is \n    frustrating and boring, many of us avoid it. 'testthat' is a testing framework \n    for R that is easy learn and use, and integrates with your existing 'workflow'.&quot;,
-  &quot;name&quot;: &quot;testthat: Unit Testing for R&quot;,
-  &quot;issueTracker&quot;: &quot;https://github.com/r-lib/testthat/issues&quot;,
-  &quot;datePublished&quot;: &quot;2017-12-13 09:30:12 UTC&quot;,
-  &quot;license&quot;: &quot;https://spdx.org/licenses/MIT&quot;,
-  &quot;version&quot;: &quot;2.0.0&quot;,
+  &quot;identifier&quot;: &quot;codemetar&quot;,
+  &quot;description&quot;: &quot;The 'Codemeta' Project defines a 'JSON-LD' format for describing\n  software metadata, as detailed at &lt;https://codemeta.github.io&gt;. This package\n  provides utilities to generate, parse, and modify 'codemeta.json' files \n  automatically for R packages, as well as tools and examples for working with\n  'codemeta.json' 'JSON-LD' more generally.&quot;,
+  &quot;name&quot;: &quot;codemetar: Generate 'CodeMeta' Metadata for R Packages&quot;,
+  &quot;codeRepository&quot;: &quot;https://github.com/ropensci/codemetar&quot;,
+  &quot;relatedLink&quot;: &quot;https://ropensci.github.io/codemetar&quot;,
+  &quot;issueTracker&quot;: &quot;https://github.com/ropensci/codemetar/issues&quot;,
+  &quot;license&quot;: &quot;https://spdx.org/licenses/GPL-3.0&quot;,
+  &quot;version&quot;: &quot;0.1.6&quot;,
   &quot;programmingLanguage&quot;: {
     &quot;@type&quot;: &quot;ComputerLanguage&quot;,
     &quot;name&quot;: &quot;R&quot;,
-    &quot;version&quot;: &quot;3.4.4&quot;,
+    &quot;version&quot;: &quot;3.5.0&quot;,
     &quot;url&quot;: &quot;https://r-project.org&quot;
   },
-  &quot;runtimePlatform&quot;: &quot;R version 3.4.4 (2018-03-15)&quot;,
+  &quot;runtimePlatform&quot;: &quot;R version 3.5.0 (2018-04-23)&quot;,
   &quot;provider&quot;: {
     &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
     &quot;@type&quot;: &quot;Organization&quot;,
-    &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+    &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
     &quot;url&quot;: &quot;https://cran.r-project.org&quot;
   },
   &quot;author&quot;: [
     {
       &quot;@type&quot;: &quot;Person&quot;,
-      &quot;givenName&quot;: &quot;Hadley&quot;,
-      &quot;familyName&quot;: &quot;Wickham&quot;,
-      &quot;email&quot;: &quot;hadley@rstudio.com&quot;
+      &quot;givenName&quot;: &quot;Carl&quot;,
+      &quot;familyName&quot;: &quot;Boettiger&quot;,
+      &quot;email&quot;: &quot;cboettig@gmail.com&quot;,
+      &quot;@id&quot;: &quot;https://orcid.org/0000-0002-1642-628X&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;Person&quot;,
+      &quot;givenName&quot;: &quot;Maëlle&quot;,
+      &quot;familyName&quot;: &quot;Salmon&quot;,
+      &quot;@id&quot;: &quot;https://orcid.org/0000-0002-2815-0399&quot;
     }
   ],
   &quot;contributor&quot;: [
     {
-      &quot;@type&quot;: &quot;Organization&quot;,
-      &quot;name&quot;: &quot;R Core team&quot;
+      &quot;@type&quot;: &quot;Person&quot;,
+      &quot;givenName&quot;: &quot;Anna&quot;,
+      &quot;familyName&quot;: &quot;Krystalli&quot;,
+      &quot;@id&quot;: &quot;https://orcid.org/0000-0002-2378-4915&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;Person&quot;,
+      &quot;givenName&quot;: &quot;Maëlle&quot;,
+      &quot;familyName&quot;: &quot;Salmon&quot;,
+      &quot;@id&quot;: &quot;https://orcid.org/0000-0002-2815-0399&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;Person&quot;,
+      &quot;givenName&quot;: &quot;Katrin&quot;,
+      &quot;familyName&quot;: &quot;Leinweber&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;Person&quot;,
+      &quot;givenName&quot;: &quot;Noam&quot;,
+      &quot;familyName&quot;: &quot;Ross&quot;,
+      &quot;@id&quot;: &quot;https://orcid.org/0000-0002-2136-0000&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;Person&quot;,
+      &quot;givenName&quot;: &quot;Arfon&quot;,
+      &quot;familyName&quot;: &quot;Smith&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;Person&quot;,
+      &quot;givenName&quot;: &quot;Jeroen&quot;,
+      &quot;familyName&quot;: &quot;Ooms&quot;,
+      &quot;@id&quot;: &quot;https://orcid.org/0000-0002-4035-0289&quot;
     }
   ],
   &quot;copyrightHolder&quot;: [
     {
-      &quot;@type&quot;: &quot;Organization&quot;,
-      &quot;name&quot;: &quot;RStudio&quot;
+      &quot;@type&quot;: &quot;Person&quot;,
+      &quot;givenName&quot;: &quot;Carl&quot;,
+      &quot;familyName&quot;: &quot;Boettiger&quot;,
+      &quot;email&quot;: &quot;cboettig@gmail.com&quot;,
+      &quot;@id&quot;: &quot;https://orcid.org/0000-0002-1642-628X&quot;
     }
   ],
-  &quot;maintainer&quot;: {
-    &quot;@type&quot;: &quot;Person&quot;,
-    &quot;givenName&quot;: &quot;Hadley&quot;,
-    &quot;familyName&quot;: &quot;Wickham&quot;,
-    &quot;email&quot;: &quot;hadley@rstudio.com&quot;
-  },
+  &quot;funder&quot;: [
+    {
+      &quot;@type&quot;: &quot;Organization&quot;,
+      &quot;name&quot;: &quot;rOpenSci&quot;
+    }
+  ],
+  &quot;maintainer&quot;: [
+    {
+      &quot;@type&quot;: &quot;Person&quot;,
+      &quot;givenName&quot;: &quot;Carl&quot;,
+      &quot;familyName&quot;: &quot;Boettiger&quot;,
+      &quot;email&quot;: &quot;cboettig@gmail.com&quot;,
+      &quot;@id&quot;: &quot;https://orcid.org/0000-0002-1642-628X&quot;
+    }
+  ],
   &quot;softwareSuggestions&quot;: [
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;testthat&quot;,
+      &quot;name&quot;: &quot;testthat&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=testthat&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;jsonvalidate&quot;,
+      &quot;name&quot;: &quot;jsonvalidate&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=jsonvalidate&quot;
+    },
     {
       &quot;@type&quot;: &quot;SoftwareApplication&quot;,
       &quot;identifier&quot;: &quot;covr&quot;,
@@ -378,20 +449,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
       &quot;provider&quot;: {
         &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
         &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
         &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
-    },
-    {
-      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
-      &quot;identifier&quot;: &quot;devtools&quot;,
-      &quot;name&quot;: &quot;devtools&quot;,
-      &quot;provider&quot;: {
-        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
-        &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
-        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=covr&quot;
     },
     {
       &quot;@type&quot;: &quot;SoftwareApplication&quot;,
@@ -400,9 +461,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
       &quot;provider&quot;: {
         &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
         &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
         &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=knitr&quot;
     },
     {
       &quot;@type&quot;: &quot;SoftwareApplication&quot;,
@@ -411,55 +473,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
       &quot;provider&quot;: {
         &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
         &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
         &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
-    },
-    {
-      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
-      &quot;identifier&quot;: &quot;xml2&quot;,
-      &quot;name&quot;: &quot;xml2&quot;,
-      &quot;provider&quot;: {
-        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
-        &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
-        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
-    }
-  ],
-  &quot;softwareRequirements&quot;: [
-    {
-      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
-      &quot;identifier&quot;: &quot;cli&quot;,
-      &quot;name&quot;: &quot;cli&quot;,
-      &quot;provider&quot;: {
-        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
-        &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
-        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
-    },
-    {
-      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
-      &quot;identifier&quot;: &quot;crayon&quot;,
-      &quot;name&quot;: &quot;crayon&quot;,
-      &quot;provider&quot;: {
-        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
-        &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
-        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
-    },
-    {
-      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
-      &quot;identifier&quot;: &quot;digest&quot;,
-      &quot;name&quot;: &quot;digest&quot;,
-      &quot;provider&quot;: {
-        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
-        &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
-        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=rmarkdown&quot;
     },
     {
       &quot;@type&quot;: &quot;SoftwareApplication&quot;,
@@ -468,9 +485,116 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
       &quot;provider&quot;: {
         &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
         &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
         &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=magrittr&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;xml2&quot;,
+      &quot;name&quot;: &quot;xml2&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=xml2&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;dplyr&quot;,
+      &quot;name&quot;: &quot;dplyr&quot;,
+      &quot;version&quot;: &quot;&gt;= 0.7.0&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=dplyr&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;printr&quot;,
+      &quot;name&quot;: &quot;printr&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=printr&quot;
+    }
+  ],
+  &quot;softwareRequirements&quot;: [
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;R&quot;,
+      &quot;name&quot;: &quot;R&quot;,
+      &quot;version&quot;: &quot;&gt;= 3.0.0&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;jsonlite&quot;,
+      &quot;name&quot;: &quot;jsonlite&quot;,
+      &quot;version&quot;: &quot;&gt;= 1.3&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=jsonlite&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;jsonld&quot;,
+      &quot;name&quot;: &quot;jsonld&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=jsonld&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;git2r&quot;,
+      &quot;name&quot;: &quot;git2r&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=git2r&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;devtools&quot;,
+      &quot;name&quot;: &quot;devtools&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=devtools&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;memoise&quot;,
+      &quot;name&quot;: &quot;memoise&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=memoise&quot;
     },
     {
       &quot;@type&quot;: &quot;SoftwareApplication&quot;,
@@ -479,57 +603,156 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
     },
     {
       &quot;@type&quot;: &quot;SoftwareApplication&quot;,
-      &quot;identifier&quot;: &quot;praise&quot;,
-      &quot;name&quot;: &quot;praise&quot;,
-      &quot;provider&quot;: {
-        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
-        &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
-        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
+      &quot;identifier&quot;: &quot;stats&quot;,
+      &quot;name&quot;: &quot;stats&quot;
     },
     {
       &quot;@type&quot;: &quot;SoftwareApplication&quot;,
-      &quot;identifier&quot;: &quot;R6&quot;,
-      &quot;name&quot;: &quot;R6&quot;,
-      &quot;version&quot;: &quot;2.2.0&quot;,
+      &quot;identifier&quot;: &quot;stringi&quot;,
+      &quot;name&quot;: &quot;stringi&quot;,
       &quot;provider&quot;: {
         &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
         &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
         &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=stringi&quot;
     },
     {
       &quot;@type&quot;: &quot;SoftwareApplication&quot;,
-      &quot;identifier&quot;: &quot;rlang&quot;,
-      &quot;name&quot;: &quot;rlang&quot;,
+      &quot;identifier&quot;: &quot;readr&quot;,
+      &quot;name&quot;: &quot;readr&quot;,
       &quot;provider&quot;: {
         &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
         &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
         &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=readr&quot;
     },
     {
       &quot;@type&quot;: &quot;SoftwareApplication&quot;,
-      &quot;identifier&quot;: &quot;withr&quot;,
-      &quot;name&quot;: &quot;withr&quot;,
-      &quot;version&quot;: &quot;2.0.0&quot;,
+      &quot;identifier&quot;: &quot;desc&quot;,
+      &quot;name&quot;: &quot;desc&quot;,
       &quot;provider&quot;: {
         &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
         &quot;@type&quot;: &quot;Organization&quot;,
-        &quot;name&quot;: &quot;Central R Archive Network (CRAN)&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
         &quot;url&quot;: &quot;https://cran.r-project.org&quot;
-      }
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=desc&quot;
     },
     {
       &quot;@type&quot;: &quot;SoftwareApplication&quot;,
-      &quot;identifier&quot;: &quot;R&quot;,
-      &quot;name&quot;: &quot;R&quot;,
-      &quot;version&quot;: &quot;3.1&quot;
+      &quot;identifier&quot;: &quot;usethis&quot;,
+      &quot;name&quot;: &quot;usethis&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=usethis&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;whisker&quot;,
+      &quot;name&quot;: &quot;whisker&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=whisker&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;tibble&quot;,
+      &quot;name&quot;: &quot;tibble&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=tibble&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;crul&quot;,
+      &quot;name&quot;: &quot;crul&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=crul&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;gh&quot;,
+      &quot;name&quot;: &quot;gh&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=gh&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;stringr&quot;,
+      &quot;name&quot;: &quot;stringr&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=stringr&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;sessioninfo&quot;,
+      &quot;name&quot;: &quot;sessioninfo&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=sessioninfo&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;purrr&quot;,
+      &quot;name&quot;: &quot;purrr&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=purrr&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;curl&quot;,
+      &quot;name&quot;: &quot;curl&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=curl&quot;
     }
-  ]
+  ],
+  &quot;isPartOf&quot;: &quot;https://ropensci.org&quot;,
+  &quot;keywords&quot;: [&quot;metadata&quot;, &quot;codemeta&quot;, &quot;ropensci&quot;, &quot;citation&quot;, &quot;credit&quot;, &quot;linked-data&quot;, &quot;json-ld&quot;]
 }</code></pre>
 </div>
 <div id="modifying-or-enriching-codemeta-metadata" class="section level2">
