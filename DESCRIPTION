@@ -1,7 +1,7 @@
 Package: codemetar
 Type: Package
 Title: Generate 'CodeMeta' Metadata for R Packages
-Version: 0.1.7
+Version: 0.1.8
 Authors@R: 
     c(person(given = "Carl",
              family = "Boettiger",
@@ -67,7 +67,7 @@ Depends: R (>= 3.0.0)
 Imports: jsonlite (>= 1.6), git2r, pkgbuild, memoise, methods, stats,
         stringi, readr, desc, usethis, whisker, tibble, crul, gh,
         stringr, sessioninfo, purrr, curl, commonmark, xml2, magrittr,
-        glue
+        glue, pingr
 Suggests: testthat, jsonld, jsonvalidate, covr, knitr, rmarkdown, dplyr
         (>= 0.7.0), printr
 VignetteBuilder: knitr
@@ -75,7 +75,7 @@ X-schema.org-keywords: metadata, codemeta, ropensci, citation, credit,
         linked-data
 X-schema.org-isPartOf: https://ropensci.org
 NeedsCompilation: no
-Packaged: 2019-03-12 18:21:05 UTC; cboettig
+Packaged: 2019-04-22 03:40:53 UTC; cboettig
 Author: Carl Boettiger [aut, cre, cph]
     (<https://orcid.org/0000-0002-1642-628X>),
   Anna Krystalli [rev, ctb] (<https://orcid.org/0000-0002-2378-4915>),
@@ -91,4 +91,4 @@ Author: Carl Boettiger [aut, cre, cph]
   Hauke Sonnenberg [ctb] (<https://orcid.org/0000-0001-9134-2871>)
 Maintainer: Carl Boettiger <cboettig@gmail.com>
 Repository: CRAN
-Date/Publication: 2019-03-12 19:16:04 UTC
+Date/Publication: 2019-04-22 04:20:03 UTC

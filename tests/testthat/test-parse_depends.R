@@ -2,6 +2,7 @@ testthat::context("parse_depends.R")
 
 testthat::test_that("Test the various cases for dependencies", {
 
+  skip_if_offline()
   skip_on_cran() # CRAN web requests often fail
   testthat::expect_error(format_depend(NULL))
   a <- format_depend(package = "a4",
@@ -37,6 +38,7 @@ testthat::test_that("Test the various cases for dependencies", {
 
 test_that("get_sameAs() works as expected", {
 
+  skip_if_offline()
   skip_on_cran() # CRAN web requests often fail
 
   expect_null(get_sameAs(NULL, "", "my_package"))
@@ -71,6 +73,9 @@ testthat::test_that("Test the various cases for ids (NOT used currently)", {
 })
 
 testthat::test_that("Sys requirements", {
+  skip_on_cran()
+  skip_if_offline()
+
   f <- system.file("examples/DESCRIPTION_sysreqs", package = "codemetar")
   descr <- codemeta_description(f)
   testthat::expect_equal(descr$softwareRequirements[[22]]$identifier,

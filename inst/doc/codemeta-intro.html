@@ -12,7 +12,7 @@
 
 <meta name="author" content="Carl Boettiger" />
 
-<meta name="date" content="2019-03-12" />
+<meta name="date" content="2019-04-21" />
 
 <title>Codemeta intro</title>
 
@@ -291,6 +291,9 @@ code > span.al { color: #ff0000; font-weight: bold; }
 code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
+
+
+
 </head>
 
 <body>
@@ -299,8 +302,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">Codemeta intro</h1>
-<h4 class="author"><em>Carl Boettiger</em></h4>
-<h4 class="date"><em>2019-03-12</em></h4>
+<h4 class="author">Carl Boettiger</h4>
+<h4 class="date">2019-04-21</h4>
 
 
 
@@ -327,9 +330,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </ul>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
-<p>You can install codemetar from github with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages(&quot;devtools&quot;)</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;codemeta/codemetar&quot;</span>)</a></code></pre></div>
+<p>You can install the development version of <code>codemetar</code> from GitHub with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages(&quot;remotes&quot;)</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;ropensci/codemetar&quot;</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;codemetar&quot;</span>)</a></code></pre></div>
 </div>
 <div id="example" class="section level2">
@@ -348,14 +351,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
   &quot;relatedLink&quot;: &quot;https://ropensci.github.io/codemetar&quot;,
   &quot;issueTracker&quot;: &quot;https://github.com/ropensci/codemetar/issues&quot;,
   &quot;license&quot;: &quot;https://spdx.org/licenses/GPL-3.0&quot;,
-  &quot;version&quot;: &quot;0.1.7&quot;,
+  &quot;version&quot;: &quot;0.1.8&quot;,
   &quot;programmingLanguage&quot;: {
     &quot;@type&quot;: &quot;ComputerLanguage&quot;,
     &quot;name&quot;: &quot;R&quot;,
-    &quot;version&quot;: &quot;3.5.2&quot;,
+    &quot;version&quot;: &quot;3.5.3&quot;,
     &quot;url&quot;: &quot;https://r-project.org&quot;
   },
-  &quot;runtimePlatform&quot;: &quot;R version 3.5.2 (2018-12-20)&quot;,
+  &quot;runtimePlatform&quot;: &quot;R version 3.5.3 (2019-03-11)&quot;,
   &quot;provider&quot;: {
     &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
     &quot;@type&quot;: &quot;Organization&quot;,
@@ -812,6 +815,18 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
         &quot;url&quot;: &quot;https://cran.r-project.org&quot;
       },
       &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=glue&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+      &quot;identifier&quot;: &quot;pingr&quot;,
+      &quot;name&quot;: &quot;pingr&quot;,
+      &quot;provider&quot;: {
+        &quot;@id&quot;: &quot;https://cran.r-project.org&quot;,
+        &quot;@type&quot;: &quot;Organization&quot;,
+        &quot;name&quot;: &quot;Comprehensive R Archive Network (CRAN)&quot;,
+        &quot;url&quot;: &quot;https://cran.r-project.org&quot;
+      },
+      &quot;sameAs&quot;: &quot;https://CRAN.R-project.org/package=pingr&quot;
     }
   ],
   &quot;isPartOf&quot;: &quot;https://ropensci.org&quot;,

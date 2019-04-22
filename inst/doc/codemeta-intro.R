@@ -4,8 +4,8 @@ if(grepl("windows", tolower(Sys.info()[["sysname"]])))
   knitr::opts_chunk$set(comment="", error =TRUE)
 
 ## ----gh-installation, eval = FALSE---------------------------------------
-#  # install.packages("devtools")
-#  devtools::install_github("codemeta/codemetar")
+#  # install.packages("remotes")
+#  remotes::install_github("ropensci/codemetar")
 
 ## ------------------------------------------------------------------------
 library("codemetar")
