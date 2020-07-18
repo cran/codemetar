@@ -5,7 +5,7 @@ parse_md_badge <- function(badge) {
 
   get_destination <- function(x) xml2::xml_attr(x, "destination")
 
-  tibble::tibble(
+  df(
     text = xml2::xml_text(image),
     link = get_destination(badge),
     image_link = get_destination(image)
@@ -27,15 +27,18 @@ extract_md_badges <- function(path) {
     gsub("[^\u0009\u000a\u000d\u0020-\uD7FF\uE000-\uFFFD]", "", .) %>%
     xml2::read_xml() %>%
     xml2::xml_find_all(".//d1:link[d1:image]", xml2::xml_ns(.)) %>%
-    purrr::map_df(parse_md_badge)
+    purrr::map(parse_md_badge) %>%
+    bind_df()
 }
+
+
 
 # parse_html_badge -------------------------------------------------------------
 parse_html_badge <- function(badge) {
 
   image <- get_image_from_badge(badge, name = "img")
 
-  tibble::tibble(
+  df(
     text = xml2::xml_attr(image, "alt"),
     link = xml2::xml_attr(badge, "href"),
     image_link = xml2::xml_attr(image, "src")
@@ -48,10 +51,10 @@ extract_html_badges <- function(path) {
   doc <- readLines(path, encoding = "UTF-8")
 
   # helper function assuming the badge table is the 1st one
-  find_first <- function(p) which(stringr::str_detect(doc, p))[1]
+  find_first <- function(p) which(grepl(p, doc))[1]
 
-  table_start <- find_first('\\<table class\\=\\"table\\"\\>')
-  table_end <- find_first('\\<\\/table\\>')
+  table_start <- find_first('\\<table class=\\"table\\">')
+  table_end <- find_first('<\\/table>')
 
   if (is.na(table_start) || is.na(table_end)) {
 
@@ -59,13 +62,14 @@ extract_html_badges <- function(path) {
   }
 
   badges <- doc[table_start:table_end] %>%
-    glue::glue_collapse() %>%
+    paste0(collapse = "") %>%
     xml2::read_html() %>%
     xml2::xml_find_all("//a")
 
   if (length(badges)) {
 
-    purrr::map_df(badges, parse_html_badge)
+    purrr::map(badges, parse_html_badge) %>%
+      bind_df()
 
   } else {
 
@@ -87,7 +91,7 @@ extract_html_badges <- function(path) {
 #'
 #' @param path Path to Markdown file
 #'
-#' @return A tibble with for each badge its text, link and link to
+#' @return A data.frame with for each badge its text, link and link to
 #' its image.
 #' @export
 #'

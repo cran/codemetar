@@ -1,8 +1,53 @@
+# codemetar 0.1.9 2020-07-16
+
+## Deprecation
+
+* The use_git_hook argument of write_codemeta() has been deprecated. Solutions for keeping DESCRIPTION and codemeta.json in sync are available in the docs.
+
+* drops `crosswalk`, [#288]
+
+## Enhancements
+
+* Docs were improved to make a better case for codemetar.
+
+* Changes in the way codeRepository is guessed. codemetar can now recognize an URL from GitHub, GitLab, Bitbucket, R-Forge among several URLs in DESCRIPTION, to assign it to codeRepository. If no URL in DESCRIPTION is from any of these providers, `guess_github()` is called.
+
+* Adds documentation of internet needs and verbosity to steps downloading information from the web (#270, @Bisaloo)
+
+* New argument `write_minimeta` for `write_codemeta()` indicating whether to also create the file schemaorg.json that  corresponds to the metadata Google would validate, to be inserted to a webpage for SEO. It is saved as "schemaorg.json" alongside `path` (by default, "codemeta.json"). This functionality requires the `jsonld` package (listed under `Suggests`).
+
+* Updated the GitHub action template to only run on pushes to the master branch and added an explanation of how that works to the readme. (@jonkeane)
+
+## Bug fixes
+
+* Fix for detecting rOpenSci review badge (@sckott, #236)
+
+* Fix extraction of ORCID when composite comment (@billy34, #231)
+
+* Fix bug in crosswalking (#243)
+
+* Bug fix: the codeRepository is updated if there's any URL in DESCRIPTION.
+
+* Bug fix: the README information is now updated by codemeta_readme(). Previously if e.g. a developmentStatus had been set previously, it was never updated.
+
+## Internals
+
+* Code cleaning following the book Martin, Robert C. Clean code: a handbook of agile software craftsmanship. Pearson Education, 2009. (@hsonne, #201, #202, #204, #205, #206, #207, #209, #210, #211, #212, #216, #218, #219, #220, #221).
+
+* Use of re-usable Rmd pieces for the README, intro vignette and man pages to reduce copy-pasting.
+
 # codemetar 0.1.8 2019-05
 
 * address internet timeout issues
 * tidy source code
 * update test suite to reflect newly available metadata.
+* `write_codemeta()` and `create_codemeta()`: `use_filesize = FALSE` is now the default and the estimation of the file size does not leave any more unwanted files behind [PR #239](https://github.com/ropensci/codemetar/pull/239). Furthermore, the way the file size is calculated changed: Before we used the size of the package built with `pkgbuild::build()`, which took rather long. Now the size is calculated based on the source files minus files excluded via  
+ `.Rbuildignore` (if such a file exists).
+* `write_codemeta()`: the default of argument `use_git_hook` is now `FALSE` to avoid an 
+unwanted alteration of the user's git environment [issue #240](https://github.com/ropensci/codemetar/issues/240).
+* Package dependency to 'pkgbuild' has been dropped.
+* `write_codemeta()` does not crash anymore if the `CITATION` file contains a line `citation(auto = meta)` [Issue #238](https://github.com/ropensci/codemetar/issues/238).
+
 
 # codemetar 0.1.7 2018-12
 
@@ -10,7 +55,7 @@
 
 * The CodeRepository URL is now cleaned a bit (removing direct link to the README).
 
-* `write_codemeta()` gains a new argument `use_githook` to make the creation of a DESCRIPTION/codemeta.json git pre-commit hook optional.
+* `write_codemeta()` gains a new argument `use_git_hook` to make the creation of a DESCRIPTION/codemeta.json git pre-commit hook optional.
 
 * `create_codemeta()` and `write_codemeta()` gain a new argument `use_filesize` to make the building of the package to get its size optional.
 

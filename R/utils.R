@@ -7,9 +7,9 @@ drop_null <- function(x) {
 # get_root_path ----------------------------------------------------------------
 get_root_path <- function(pkg) {
 
-  if (pkg %in% installed_package_names()) {
+  if (is_installed(pkg)) {
 
-    package_file(pkg, ".")
+    find.package(pkg)
 
   } else if (is_package(file.path(pkg))) {
 
@@ -32,11 +32,15 @@ package_file <- function(pkg, ...) {
   system.file(..., package = pkg)
 }
 
-# installed_package_names: names of installed packages -------------------------
-#' @importFrom utils installed.packages
-installed_package_names <- function() {
+# is_installed: is the package installed -------------------------
+is_installed <- function(pkg) {
 
-  row.names(installed.packages())
+  length(
+    find.package(
+      package = pkg,
+      quiet = TRUE
+      )
+    ) > 0
 }
 
 # get_file ---------------------------------------------------------------------
@@ -66,26 +70,10 @@ is_IRI <- function(string) {
 # uses_git ---------------------------------------------------------------------
 # from usethis cf https://github.com/r-lib/usethis/blob/2abb0422a97808cc573fa5900a8efcfed4c2d5b4/R/git.R#L68
 # this is GPL-3 code
-uses_git <- function(path = usethis::proj_get()) {
+# now with gert not git2r
+uses_git <- function(path) {
 
-  ! is.null(git2r::discover_repository(path))
-}
-
-# from usethis cf https://github.com/r-lib/usethis/blob/4fb556788d2588facaaa8560242d2c83f2261d6e/R/helpers.R#L55
-# this is GPL-3 code
-render_template <- function(template, data = list(), package = "codemetar") {
-
-  template_path <- find_template(template, package = package)
-
-  strsplit(whisker::whisker.render(readLines(template_path), data), "\n")[[1]]
-}
-
-# find_template-----------------------------------------------------------------
-# from usethis cf https://github.com/r-lib/usethis/blob/4fb556788d2588facaaa8560242d2c83f2261d6e/R/helpers.R#L60
-# this is GPL-3 code
-find_template <- function(template_name, package = "usethis") {
-
-  package_file(package, "templates", template_name)
+  !is.null(tryCatch(gert::git_find(path), error = function(e){NULL}))
 }
 
 # get_url_status_code ----------------------------------------------------------
@@ -116,6 +104,11 @@ get_url_status_code <- function(url) {
 
 # check_urls -------------------------------------------------------------------
 check_urls <- function(urls) {
+
+  if (!pingr::is_online()) {
+
+    return("")
+  }
 
   messages <- do.call(rbind, lapply(urls, get_url_status_code))
 
@@ -151,26 +144,25 @@ is_package <- function(path) {
   all(c("DESCRIPTION", "NAMESPACE", "man", "R") %in% dir(path))
 }
 
-# set_element_if_null ----------------------------------------------------------
-set_element_if_null <- function(x, element, value) {
+# set_element ----------------------------------------------
+set_element <- function(x, element, value) {
 
   stopifnot(is.list(x))
 
-  if (is.null(x[[element]])) {
-
-    x[[element]] <- value
-  }
+  x[[element]] <- value
 
   x
+
 }
+
 
 # fails ------------------------------------------------------------------------
 #' Does the Evaluation of an Expression Fail?
 #'
-#' @param expr expression to be evaluated within \code{try(\dots)}
-#' @param silent passed to \code{\link{try}}, see there.
-#' @return \code{TRUE} if evaluating \code{expr} failed and \code{FALSE} if
-#'   the evalutation of \code{expr} succeeded.
+#' @param expr expression to be evaluated within `try(\dots)`
+#' @param silent passed to [try()], see there.
+#' @return `TRUE` if evaluating `expr` failed and `FALSE` if
+#'   the evalutation of `expr` succeeded.
 #' @noRd
 fails <- function(expr, silent = TRUE) {
 
@@ -187,8 +179,8 @@ example_file <- function(...) {
 #' Check for Class "json" or Character
 #'
 #' @param x object to be checked for its class and mode
-#' @return \code{TRUE} if \code{x} inherits from "json" or is of mode character,
-#'   otherwise \code{FALSE}
+#' @return `TRUE` if `x` inherits from "json" or is of mode character,
+#'   otherwise `FALSE`
 #' @noRd
 is_json_or_character <- function(x) {
 
@@ -201,7 +193,7 @@ is_json_or_character <- function(x) {
 #'
 #' @param condition expression to be evaluated
 #' @param x object to be converted to JSON
-#' @param \dots further arguments passed to \code{\link[jsonlite]{toJSON}}
+#' @param \dots further arguments passed to [jsonlite::toJSON()]
 #' @importFrom jsonlite toJSON
 #' @noRd
 to_json_if <- function(condition, x, ...) {
@@ -214,9 +206,9 @@ to_json_if <- function(condition, x, ...) {
 #' Convert from JSON if Condition is Met
 #'
 #' @param condition expression to be evaluated
-#' @param x object passed to \code{\link[jsonlite]{fromJSON}} if
-#'   \code{condition} is met
-#' @param \dots further arguments passed to \code{\link[jsonlite]{fromJSON}}
+#' @param x object passed to [jsonlite::fromJSON()] if
+#'   `condition` is met
+#' @param \dots further arguments passed to [jsonlite::fromJSON()]
 #' @importFrom jsonlite fromJSON
 #' @noRd
 from_json_if <- function(condition, x, ...) {
@@ -229,9 +221,9 @@ from_json_if <- function(condition, x, ...) {
 #' Call Function if Condition is Met
 #'
 #' @param condition expression to be evaluated
-#' @param FUN function to be called if \code{condition} is met
-#' @param x first argument to be passed to \code{FUN} or not
-#' @param \dots further arguments passed to \code{FUN}
+#' @param FUN function to be called if `condition` is met
+#' @param x first argument to be passed to `FUN` or not
+#' @param \dots further arguments passed to `FUN`
 #' @noRd
 call_if <- function(condition, x, FUN, ...) {
 
@@ -243,4 +235,62 @@ call_if <- function(condition, x, FUN, ...) {
 
     x
   }
+}
+
+# bind df -----------------------
+bind_df <- function(dfs) {
+  do.call("rbind", dfs)
+}
+
+# df -----------------------
+df <- function(...) {
+  data.frame(
+    ...,
+    stringsAsFactors = FALSE
+    )
+}
+
+# use_build_ignore -----------------------
+# Adapted from https://github.com/r-lib/usethis/blob/85327feeec22ab2f6f46efcd2d3d0a4b010f132b/R/ignore.R#L23
+use_build_ignore <- function(thing, path) {
+  thing <- escape_path(thing)
+  write_union(
+    file.path(
+      path,
+      ".Rbuildignore"
+      ),
+    thing
+    )
+}
+
+# write_union --------------------
+# from https://github.com/r-lib/usethis/blob/368714a4f487dce4719ac8a002383d719f73cd64/R/write.R#L45
+write_union <- function(path, lines) {
+
+  if (file.exists(path)) {
+    existing_lines <- readLines(path, encoding = "UTF-8", warn = FALSE)
+  } else {
+    existing_lines <- character()
+  }
+
+  new <- setdiff(lines, existing_lines)
+  if (length(new) == 0) {
+    return(invisible(FALSE))
+  }
+
+  all <- c(existing_lines, new)
+  base::writeLines(
+    all,
+    con = path,
+    useBytes = TRUE
+    )
+
+}
+
+# escape_path ------------------
+# from https://github.com/r-lib/usethis/blob/85327feeec22ab2f6f46efcd2d3d0a4b010f132b/R/ignore.R#L31
+escape_path <- function(x) {
+  x <- gsub("\\.", "\\\\.", x)
+  x <- gsub("/$", "", x)
+  paste0("^", x, "$")
 }

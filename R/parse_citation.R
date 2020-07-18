@@ -1,11 +1,10 @@
 ## map a "citation" or "bibentry" R object into schema.org
 # bib <- citation(pkg)
 
-#' @importFrom stringi stri_trans_general
 parse_citation <- function(bib) {
 
   type <- bib$bibtype %>%
-    stringi::stri_trans_general(id = "Title") %>%
+    tools::toTitleCase() %>%
     bibentry_to_schema_field()
 
   author <- parse_people(bib$author, new_codemeta())$author
@@ -32,7 +31,6 @@ parse_citation <- function(bib) {
 ## so would need to include schema.org context
 
 bibentry_to_schema_field <- function(bibtype) {
-
   switch(
     bibtype,
     "Article" = "ScholarlyArticle",
@@ -62,7 +60,7 @@ init_citation <- function(type, author, doi, id, bib)
     "identifier" = doi,
     "url" = bib$url,
     "description" = bib$note,
-    "paginiation" = bib$pages,
+    "pagination" = bib$pages,
     "@id" = id,   # may be NULL and will be removed by drop_null()
     "sameAs" = id # same same
   ))
@@ -70,7 +68,6 @@ init_citation <- function(type, author, doi, id, bib)
 
 # to_url_doi_or_null -----------------------------------------------------------
 
-#' @importFrom stringi stri_startswith
 to_url_doi_or_null <- function(doi) {
 
   # Return NULL if doi is NULL itself
@@ -80,7 +77,7 @@ to_url_doi_or_null <- function(doi) {
   }
 
   # Return doi if it already looks like an URL of doi.org
-  if (stringi::stri_startswith(doi, coll = get_url_doi())) {
+  if (grepl(paste0("^", get_url_doi()), doi)) {
 
     return(doi)
   }
@@ -130,7 +127,7 @@ guess_citation <- function(pkg) {
 
   citation_file_exists <- file.exists(citation_file)
 
-  package_is_installed <- pkg %in% installed_package_names()
+  package_is_installed <- is_installed(pkg)
 
   # Return NULL if there is no citation file and if pkg is not installed
   if (! citation_file_exists && ! package_is_installed) {
@@ -159,11 +156,40 @@ guess_citation <- function(pkg) {
 # read_citation_with_encoding --------------------------------------------------
 read_citation_with_encoding <- function(citation_file, encoding = NA)
 {
-  meta <- if (! is.na(encoding)) {
-
+  meta <- if (!is.na(encoding)) {
     list(Encoding = encoding)
 
   } # else NULL implicitly
 
-  utils::readCitationFile(citation_file, meta = meta)
+  ## try to read citation file
+  citation <- try(utils::readCitationFile(citation_file, meta = meta), silent = TRUE)
+
+  ## if this fails for a very specific reason, namely a line similar to
+  ## citation(auto = meta), this line gets removed and we continue working
+  ## with a temporary CITATION file
+  if(inherits(citation, "try-error")){
+    if(grepl(pattern = "Error in.+?auto", citation[1])){
+      ## >> (1) read original CITATION file
+      temp_citation <-
+        readLines(
+          con = citation_file,
+          encoding = if (!is.na(encoding)) encoding else "unknown")
+
+      ## >> (2) remove citation(auto = meta)
+      repl_id <- which(grepl(
+        pattern = "citation\\s*\\(auto\\s*=\\s*meta\\s*\\)",
+        x = temp_citation
+        ))
+      temp_citation <- temp_citation[-repl_id]
+
+      ## >> (3) write new temporary citation file
+      temp_file <- tempfile()
+      writeLines(temp_citation, temp_file)
+
+      ## >> (4) apply extraction
+      citation <- utils::readCitationFile(temp_file, meta = meta)
+    }
+  }
+
+  return(citation)
 }
