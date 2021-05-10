@@ -10,29 +10,21 @@ if(grepl("windows", tolower(Sys.info()[["sysname"]])))
 #  # install.packages("remotes")
 #  remotes::install_github("ropensci/codemetar", ref = "dev")
 
-## -----------------------------------------------------------------------------
-codemetar::write_codemeta(find.package("codemetar"))
+## ----echo=FALSE, eval=TRUE----------------------------------------------------
+pkg <- "../.."
+codemetar::write_codemeta(pkg = pkg)
 
-## ----echo = FALSE-------------------------------------------------------------
+## ----echo=TRUE, eval=FALSE----------------------------------------------------
+#  codemetar::write_codemeta()
+
+## ----eval = TRUE--------------------------------------------------------------
 library("magrittr")
-"codemeta.json" %>%
+"../../codemeta.json" %>%
   details::details(summary = "codemetar's codemeta.json",
                    lang = "json")
 
 ## ----echo = FALSE, results='hide'---------------------------------------------
-file.remove("codemeta.json")
-
-## -----------------------------------------------------------------------------
-codemetar::write_codemeta("testthat", path = "example-codemeta.json")
-
-## ----echo = FALSE-------------------------------------------------------------
-library("magrittr")
-"example-codemeta.json" %>%
-  details::details(summary = "testthat's basic codemeta.json",
-                   lang = "json")
-
-## ----echo = FALSE, results='hide'---------------------------------------------
-file.remove("example-codemeta.json")
+file.remove(file.path(pkg, "codemeta.json"))
 
 ## ---- echo = FALSE------------------------------------------------------------
 details::details(system.file("templates", "codemeta-github-actions.yml", package = "codemetar"), 
