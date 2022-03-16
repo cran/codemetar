@@ -12,11 +12,23 @@
 
 <meta name="author" content="Carl Boettiger" />
 
-<meta name="date" content="2022-01-03" />
+<meta name="date" content="2022-03-16" />
 
 <title>Intro to codemetar, Codemeta creator for R packages</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -26,6 +38,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 <style type="text/css">
@@ -127,7 +140,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -139,71 +332,142 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<h1 class="title toc-ignore">Intro to codemetar, Codemeta creator for R packages</h1>
+<h1 class="title toc-ignore">Intro to codemetar, Codemeta creator for R
+packages</h1>
 <h4 class="author">Carl Boettiger</h4>
-<h4 class="date">2022-01-03</h4>
+<h4 class="date">2022-03-16</h4>
 
 
 
 <div id="codemetar-generate-codemeta-metadata-for-r-packages" class="section level1">
 <h1>codemetar: generate codemeta metadata for R packages</h1>
-<p><strong>Why codemetar?</strong> The ‘Codemeta’ Project defines a ‘JSON-LD’ format for describing software metadata, as detailed at <a href="https://codemeta.github.io" class="uri">https://codemeta.github.io</a>. This package provides utilities to <strong>generate, parse, and modify codemeta.jsonld files automatically for R packages</strong>, as well as tools and examples for <strong>working with codemeta json-ld more generally</strong>.</p>
+<p><strong>Why codemetar?</strong> The ‘Codemeta’ Project defines a
+‘JSON-LD’ format for describing software metadata, as detailed at <a href="https://codemeta.github.io" class="uri">https://codemeta.github.io</a>. This package provides
+utilities to <strong>generate, parse, and modify codemeta.jsonld files
+automatically for R packages</strong>, as well as tools and examples for
+<strong>working with codemeta json-ld more generally</strong>.</p>
 <p>It has three main goals:</p>
 <ul>
-<li>Quickly <strong>generate a valid codemeta.json file from any valid R package</strong>. To do so, we automatically extract as much metadata as possible using the DESCRIPTION file, as well as extracting metadata from other common best-practices such as the presence of Travis and other badges in README, etc.</li>
-<li>Facilitate the addition of further metadata fields into a codemeta.json file, as well as general manipulation of codemeta files.</li>
-<li>Support the ability to crosswalk between terms used in other metadata standards, as identified by the Codemeta Project Community, see <a href="https://codemeta.github.io/crosswalk/" class="uri">https://codemeta.github.io/crosswalk/</a></li>
+<li>Quickly <strong>generate a valid codemeta.json file from any valid R
+package</strong>. To do so, we automatically extract as much metadata as
+possible using the DESCRIPTION file, as well as extracting metadata from
+other common best-practices such as the presence of Travis and other
+badges in README, etc.</li>
+<li>Facilitate the addition of further metadata fields into a
+codemeta.json file, as well as general manipulation of codemeta
+files.</li>
+<li>Support the ability to crosswalk between terms used in other
+metadata standards, as identified by the Codemeta Project Community, see
+<a href="https://codemeta.github.io/crosswalk/" class="uri">https://codemeta.github.io/crosswalk/</a></li>
 </ul>
 <div id="why-create-a-codemeta.json-for-your-package" class="section level2">
 <h2>Why create a codemeta.json for your package?</h2>
-<p><strong>Why bother creating a codemeta.json for your package?</strong> R packages encode lots of metadata in the <code>DESCRIPTION</code> file, <code>README</code>, and other places, telling users and developers about the package purpose, authors, license, dependencies, and other information that facilitates discovery, adoption, and credit for your software. Unfortunately, because each software language records this metadata in a different format, that information is hard for search engines, software repositories, and other developers to find and integrate.</p>
-<p>By generating a <code>codemeta.json</code> file, you turn your metadata into a format that can easily crosswalk between metadata in many other software languages. CodeMeta is built on <a href="https://schema.org">schema.org</a> a simple <a href="https://developers.google.com/search/docs/advanced/structured-data/intro-structured-data">structured data</a> format developed by major search engines like Google and Bing to improve discoverability in search. CodeMeta is also understood by significant software archiving efforts such as <a href="https://www.softwareheritage.org/">Software Heritage</a> Project, which seeks to permanently archive all open source software.</p>
-<p>For more general information about the CodeMeta Project for defining software metadata, see <a href="https://codemeta.github.io" class="uri">https://codemeta.github.io</a>. In particular, new users might want to start with the <a href="https://codemeta.github.io/user-guide/">User Guide</a>, while those looking to learn more about JSON-LD and consuming existing codemeta files should see the <a href="https://codemeta.github.io/developer-guide/">Developer Guide</a>.</p>
+<p><strong>Why bother creating a codemeta.json for your
+package?</strong> R packages encode lots of metadata in the
+<code>DESCRIPTION</code> file, <code>README</code>, and other places,
+telling users and developers about the package purpose, authors,
+license, dependencies, and other information that facilitates discovery,
+adoption, and credit for your software. Unfortunately, because each
+software language records this metadata in a different format, that
+information is hard for search engines, software repositories, and other
+developers to find and integrate.</p>
+<p>By generating a <code>codemeta.json</code> file, you turn your
+metadata into a format that can easily crosswalk between metadata in
+many other software languages. CodeMeta is built on <a href="https://schema.org">schema.org</a> a simple <a href="https://developers.google.com/search/docs/advanced/structured-data/intro-structured-data">structured
+data</a> format developed by major search engines like Google and Bing
+to improve discoverability in search. CodeMeta is also understood by
+significant software archiving efforts such as <a href="https://www.softwareheritage.org/">Software Heritage</a> Project,
+which seeks to permanently archive all open source software.</p>
+<p>For more general information about the CodeMeta Project for defining
+software metadata, see <a href="https://codemeta.github.io" class="uri">https://codemeta.github.io</a>. In particular, new users
+might want to start with the <a href="https://codemeta.github.io/user-guide/">User Guide</a>, while
+those looking to learn more about JSON-LD and consuming existing
+codemeta files should see the <a href="https://codemeta.github.io/developer-guide/">Developer
+Guide</a>.</p>
 </div>
 <div id="installation-and-usage-requirements" class="section level2">
 <h2>Installation and usage requirements</h2>
 <p>You can install the latest version from CRAN using:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;codemetar&quot;</span>)</span></code></pre></div>
-<p>You can also install the development version of <code>codemetar</code> from GitHub with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;remotes&quot;)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;ropensci/codemetar&quot;</span>, <span class="at">ref =</span> <span class="st">&quot;dev&quot;</span>)</span></code></pre></div>
+<p>You can also install the development version of
+<code>codemetar</code> from GitHub with:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;ropensci/codemetar&quot;</span>)</span></code></pre></div>
 <p>For optimal results you need a good internet connection.</p>
 <p>The package queries</p>
 <ul>
-<li><p><code>utils::available.packages()</code> for CRAN and Bioconductor packages;</p></li>
-<li><p>GitHub API via the <a href="https://github.com/r-lib/gh"><code>gh</code> package</a>, if it finds a GitHub repo URL in DESCRIPTION or as git remote. GitHub API is queried to find the <a href="https://developer.github.com/v3/repos/contents/#get-the-readme">preferred README</a>, and the <a href="https://developer.github.com/v3/repos/#list-all-topics-for-a-repository">repo topics</a>. If you use codemetar for many packages having a <a href="https://github.com/r-lib/gh#environment-variables">GITHUB_PAT</a> is better;</p></li>
-<li><p><a href="https://docs.r-hub.io/#sysreqs">R-hub sysreqs API</a> to parse SystemRequirements.</p></li>
+<li><p><code>utils::available.packages()</code> for CRAN and
+Bioconductor packages;</p></li>
+<li><p>GitHub API via the <a href="https://github.com/r-lib/gh"><code>gh</code> package</a>, if it
+finds a GitHub repo URL in DESCRIPTION or as git remote. GitHub API is
+queried to find the <a href="https://developer.github.com/v3/repos/contents/#get-the-readme">preferred
+README</a>, and the <a href="https://developer.github.com/v3/repos/#list-all-topics-for-a-repository">repo
+topics</a>. If you use codemetar for many packages having a <a href="https://github.com/r-lib/gh#environment-variables">GITHUB_PAT</a>
+is better;</p></li>
+<li><p><a href="https://docs.r-hub.io/#sysreqs">R-hub sysreqs API</a> to
+parse SystemRequirements.</p></li>
 </ul>
-<p>If your machine is offline, a more minimal codemeta.json will be created. If your internet connection is poor or there are firewalls, the codemeta creation might indefinitely hang.</p>
+<p>If your machine is offline, a more minimal codemeta.json will be
+created. If your internet connection is poor or there are firewalls, the
+codemeta creation might indefinitely hang.</p>
 </div>
 <div id="create-a-codemeta.json-in-one-function-call" class="section level2">
 <h2>Create a codemeta.json in one function call</h2>
-<p><code>codemetar</code> can take the path to the source package root to glean as much information as possible.</p>
+<p><code>codemetar</code> can take the path to the source package root
+to glean as much information as possible.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>codemetar<span class="sc">::</span><span class="fu">write_codemeta</span>()</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;magrittr&quot;</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;../../codemeta.json&quot;</span> <span class="sc">%&gt;%</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  details<span class="sc">::</span><span class="fu">details</span>(<span class="at">summary =</span> <span class="st">&quot;codemetar&#39;s codemeta.json&quot;</span>,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">lang =</span> <span class="st">&quot;json&quot;</span>)</span></code></pre></div>
-<p>By default most often from within your package folder you’ll simply run <code>codemetar::write_codemeta()</code>.</p>
+<p>By default most often from within your package folder you’ll simply
+run <code>codemetar::write_codemeta()</code>.</p>
 </div>
 <div id="keep-codemeta.json-up-to-date" class="section level2">
 <h2>Keep codemeta.json up-to-date</h2>
-<p><strong>How to keep codemeta.json up-to-date?</strong> In particular, how to keep it up to date with <code>DESCRIPTION</code>? <code>codemetar</code> itself no longer supports automatic sync, but there are quite a few methods available out there. Choose one that fits well into your workflow!</p>
+<p><strong>How to keep codemeta.json up-to-date?</strong> In particular,
+how to keep it up to date with <code>DESCRIPTION</code>?
+<code>codemetar</code> itself no longer supports automatic sync, but
+there are quite a few methods available out there. Choose one that fits
+well into your workflow!</p>
 <ul>
-<li><p>You could rely on <code>devtools::release()</code> since it will ask you whether you updated codemeta.json when such a file exists.</p></li>
-<li><p>You could use a git pre-commit hook that prevents a commit from being done if DESCRIPTION is newer than codemeta.json.</p>
+<li><p>You could rely on <code>devtools::release()</code> since it will
+ask you whether you updated codemeta.json when such a file
+exists.</p></li>
+<li><p>You could use a git pre-commit hook that prevents a commit from
+being done if DESCRIPTION is newer than codemeta.json.</p>
 <ul>
-<li><p>You can use the <a href="https://github.com/lorenzwalthert/precommit">precommit package</a> in which there’s a “codemeta-description-updated” hook.</p></li>
-<li><p>If that’s your only pre-commit hook (i.e. you don’t have one created by e.g. <code>usethis::use_readme_rmd()</code>), then you can create it using</p></li>
+<li><p>You can use the <a href="https://github.com/lorenzwalthert/precommit">precommit package</a>
+in which there’s a “codemeta-description-updated” hook.</p></li>
+<li><p>If that’s your only pre-commit hook (i.e. you don’t have one
+created by e.g. <code>usethis::use_readme_rmd()</code>), then you can
+create it using</p></li>
 </ul></li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>script <span class="ot">=</span> <span class="fu">readLines</span>(<span class="fu">system.file</span>(<span class="st">&quot;templates&quot;</span>, <span class="st">&quot;description-codemetajson-pre-commit.sh&quot;</span>, <span class="at">package =</span> <span class="st">&quot;codemetar&quot;</span>))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_git_hook</span>(<span class="st">&quot;pre-commit&quot;</span>,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">script =</span> script)</span></code></pre></div>
 <ul>
-<li>You could use GitHub actions. Refer to GitHub actions docs <a href="https://github.com/features/actions" class="uri">https://github.com/features/actions</a>, and to the example workflow provided in this package (type <code>system.file(&quot;templates&quot;, &quot;codemeta-github-actions.yml&quot;, package = &quot;codemetar&quot;)</code>). You can use the <code>cm-skip</code> keyword in your commit message if you don’t want this to run on a specific commit. The example workflow provided is setup to only run when a push is made to the master branch. This setup is designed for if you’re using a <a href="https://nvie.com/posts/a-successful-git-branching-model/#the-main-branches">git flow</a> setup where the master branch is only committed and pushed to via pull requests. After each PR merge (and the completion of this GitHub action), your master branch will always be up to date and so long as you don’t make manual changes to the codemeta.json file, you won’t have merge conflicts.</li>
+<li>You could use GitHub actions. Refer to GitHub actions docs <a href="https://github.com/features/actions" class="uri">https://github.com/features/actions</a>, and to the example
+workflow provided in this package (type
+<code>system.file(&quot;templates&quot;, &quot;codemeta-github-actions.yml&quot;, package = &quot;codemetar&quot;)</code>).
+You can use the <code>cm-skip</code> keyword in your commit message if
+you don’t want this to run on a specific commit. The example workflow
+provided is setup to only run when a push is made to the master branch.
+This setup is designed for if you’re using a <a href="https://nvie.com/posts/a-successful-git-branching-model/#the-main-branches">git
+flow</a> setup where the master branch is only committed and pushed to
+via pull requests. After each PR merge (and the completion of this
+GitHub action), your master branch will always be up to date and so long
+as you don’t make manual changes to the codemeta.json file, you won’t
+have merge conflicts.</li>
 </ul>
-<p>Alternatively, you can have GitHub actions route run <code>codemetar</code> on each commit. If you do this you should try to remember to run <code>git pull</code> before making any new changes on your local project. However, if you forgot to pull and already committed new changes, fret not, you can use (<a href="https://stackoverflow.com/questions/18930527/difference-between-git-pull-and-git-pull-rebase/38139843#38139843"><code>git pull --rebase</code></a>) to rewind you local changes on top of the current upstream <code>HEAD</code>.</p>
+<p>Alternatively, you can have GitHub actions route run
+<code>codemetar</code> on each commit. If you do this you should try to
+remember to run <code>git pull</code> before making any new changes on
+your local project. However, if you forgot to pull and already committed
+new changes, fret not, you can use (<a href="https://stackoverflow.com/questions/18930527/difference-between-git-pull-and-git-pull-rebase/38139843#38139843"><code>git pull --rebase</code></a>)
+to rewind you local changes on top of the current upstream
+<code>HEAD</code>.</p>
 <details closed>
 <summary>
 <span title="Click to Expand"> click here to see the workflow </span>
@@ -239,63 +503,132 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="a-brief-intro-to-common-terms-well-use" class="section level2">
 <h2>A brief intro to common terms we’ll use:</h2>
 <ul>
-<li><p><a href="https://en.wikipedia.org/wiki/Linked_data">Linked data</a>: We often use different words to mean the same thing. And sometimes the same word to mean different things. Linked data seeks to address this issue by using <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URIs</a> (i.e. URLs) to make this explicit.</p></li>
-<li><p>context: No one likes typing out long URLs all the time. So instead, the <em>context</em> of a JSON-LD file (<code>&quot;@context&quot;</code> element) gives us the context for the terms we use, that is, the root URL. Usually schema.org but domain specific ones also (eg codemeta)</p></li>
-<li><p><a href="https://schema.org/">Schema.org</a>: A major initiative led by Google and other search engines to define a simple and widely used context to link data on the web through a catalogue of standard metadata fields</p></li>
-<li><p><a href="https://codemeta.github.io/">The CodeMeta Project</a>: an academic led community initiative to formalise the metadata fields included in typical software metadata records and introduce important fields that did not have clear equivalents. The codemeta <a href="https://codemeta.github.io/crosswalk/">crosswalk</a> provides an explicit map between the metadata fields used by a broad range of software repositories, registries and archives</p></li>
-<li><p><a href="https://json-ld.org">JSON-LD</a>: While ‘linked data’ can be represented in many different formats, these have consistently proven a bit tricky to use, either for consumers or developers or both. JSON-LD provides a simple adaptation of the JSON format, which has proven much more popular with both audiences, that allows it to express (most) linked-data concepts. It is now the format of choice for expressing linked data by Google and many others. Any JSON-LD file is valid JSON, and any JSON file can be treated as JSON-LD.</p></li>
-<li><p><a href="https://codemeta.github.io/codemetar/">codemetar</a>: The CodeMeta Project has created tools in several languages to implement the CodeMeta Crosswalk (using JSON-LD) and help extract software metadata into <code>codemeta.json</code> records. <code>codemetar</code> is one such tool, focused on R and R packages.</p></li>
+<li><p><a href="https://en.wikipedia.org/wiki/Linked_data">Linked
+data</a>: We often use different words to mean the same thing. And
+sometimes the same word to mean different things. Linked data seeks to
+address this issue by using <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URIs</a>
+(i.e. URLs) to make this explicit.</p></li>
+<li><p>context: No one likes typing out long URLs all the time. So
+instead, the <em>context</em> of a JSON-LD file (<code>&quot;@context&quot;</code>
+element) gives us the context for the terms we use, that is, the root
+URL. Usually schema.org but domain specific ones also (eg
+codemeta)</p></li>
+<li><p><a href="https://schema.org/">Schema.org</a>: A major initiative
+led by Google and other search engines to define a simple and widely
+used context to link data on the web through a catalogue of standard
+metadata fields</p></li>
+<li><p><a href="https://codemeta.github.io/">The CodeMeta Project</a>:
+an academic led community initiative to formalise the metadata fields
+included in typical software metadata records and introduce important
+fields that did not have clear equivalents. The codemeta <a href="https://codemeta.github.io/crosswalk/">crosswalk</a> provides an
+explicit map between the metadata fields used by a broad range of
+software repositories, registries and archives</p></li>
+<li><p><a href="https://json-ld.org">JSON-LD</a>: While ‘linked data’
+can be represented in many different formats, these have consistently
+proven a bit tricky to use, either for consumers or developers or both.
+JSON-LD provides a simple adaptation of the JSON format, which has
+proven much more popular with both audiences, that allows it to express
+(most) linked-data concepts. It is now the format of choice for
+expressing linked data by Google and many others. Any JSON-LD file is
+valid JSON, and any JSON file can be treated as JSON-LD.</p></li>
+<li><p><a href="https://codemeta.github.io/codemetar/">codemetar</a>:
+The CodeMeta Project has created tools in several languages to implement
+the CodeMeta Crosswalk (using JSON-LD) and help extract software
+metadata into <code>codemeta.json</code> records. <code>codemetar</code>
+is one such tool, focused on R and R packages.</p></li>
 </ul>
 </div>
 <div id="how-to-improve-your-packages-codemeta.json" class="section level2">
 <h2>How to improve your package’s codemeta.json?</h2>
-<p>The best way to ensure <code>codemeta.json</code> is as complete as possible is to set metadata in all the usual places, and then if needed add more metadata.</p>
-<p>To ensure you have metadata in the usual places, you can run <code>codemetar::give_opinions()</code>.</p>
+<p>The best way to ensure <code>codemeta.json</code> is as complete as
+possible is to set metadata in all the usual places, and then if needed
+add more metadata.</p>
+<p>To ensure you have metadata in the usual places, you can run
+<code>codemetar::give_opinions()</code>.</p>
 <div id="usual-terms-in-description" class="section level3">
 <h3>Usual terms in DESCRIPTION</h3>
 <ul>
 <li><p>Fill <code>BugReports</code> and <code>URL</code>.</p></li>
-<li><p>Using the <code>Authors@R</code> notation allows a much richer specification of author roles, correct parsing of given vs family names, and email addresses.</p></li>
+<li><p>Using the <code>Authors@R</code> notation allows a much richer
+specification of author roles, correct parsing of given vs family names,
+and email addresses.</p></li>
 </ul>
-<p>In the current implementation, developers may specify an ORCID url for an author in the optional <code>comment</code> field of <code>Authors@R</code>, e.g.</p>
+<p>In the current implementation, developers may specify an ORCID url
+for an author in the optional <code>comment</code> field of
+<code>Authors@R</code>, e.g.</p>
 <pre><code>Authors@R: c(person(given = &quot;Carl&quot;,
              family = &quot;Boettiger&quot;,
              role = c(&quot;aut&quot;, &quot;cre&quot;, &quot;cph&quot;),
              email = &quot;cboettig@gmail.com&quot;,
              comment = c(ORCID = &quot;0000-0002-1642-628X&quot;)))</code></pre>
-<p>which will allow <code>codemetar</code> to associate an identifier with the person. This is clearly something of a hack since R’s <code>person</code> object lacks an explicit notion of <code>id</code>, and may be frowned upon.</p>
+<p>which will allow <code>codemetar</code> to associate an identifier
+with the person. This is clearly something of a hack since R’s
+<code>person</code> object lacks an explicit notion of <code>id</code>,
+and may be frowned upon.</p>
 </div>
 <div id="usual-terms-in-the-readme" class="section level3">
 <h3>Usual terms in the README</h3>
-<p>In the README, you can use badges for continuous integration, repo development status (repostatus.org or lifecycle.org), provider (<a href="https://docs.r-hub.io/#badges">e.g. for CRAN</a>).</p>
+<p>In the README, you can use badges for continuous integration, repo
+development status (repostatus.org or lifecycle.org), provider (<a href="https://docs.r-hub.io/#badges">e.g. for CRAN</a>).</p>
 </div>
 <div id="github-repo-topics" class="section level3">
 <h3>GitHub repo topics</h3>
-<p>If your package source is hosted on GitHub and there’s a way for codemetar to determine that (URL in DESCRIPTION, or git remote URL) codemetar will use <a href="https://docs.github.com/en/github/administering-a-repository/classifying-your-repository-with-topics">GitHub repo topics</a> as keywords in codemeta.json. If you also set keywords in DESCRIPTION (see next section), codemetar will merge the two lists.</p>
+<p>If your package source is hosted on GitHub and there’s a way for
+codemetar to determine that (URL in DESCRIPTION, or git remote URL)
+codemetar will use <a href="https://docs.github.com/en/github/administering-a-repository/classifying-your-repository-with-topics">GitHub
+repo topics</a> as keywords in codemeta.json. If you also set keywords
+in DESCRIPTION (see next section), codemetar will merge the two
+lists.</p>
 </div>
 <div id="set-even-more-terms-via-description" class="section level3">
 <h3>Set even more terms via DESCRIPTION</h3>
-<p>In general, setting metadata via the places stated earlier is the best solution because that metadata is used by other tools (e.g. the URLs in DESCRIPTION can help the package users, not only codemetar).</p>
-<p>The DESCRIPTION file is the natural place to specify any metadata for an R package. The <code>codemetar</code> package can detect certain additional terms in the <a href="https://codemeta.github.io/terms/">CodeMeta context</a>. Almost any additional codemeta field can be added to and read from the DESCRIPTION into a <code>codemeta.json</code> file (see <code>codemetar:::additional_codemeta_terms</code> for a list).</p>
-<p>CRAN requires that you prefix any additional such terms to indicate the use of <code>schema.org</code> explicitly, e.g. <code>keywords</code> would be specified in a DESCRIPTION file as:</p>
+<p>In general, setting metadata via the places stated earlier is the
+best solution because that metadata is used by other tools (e.g. the
+URLs in DESCRIPTION can help the package users, not only codemetar).</p>
+<p>The DESCRIPTION file is the natural place to specify any metadata for
+an R package. The <code>codemetar</code> package can detect certain
+additional terms in the <a href="https://codemeta.github.io/terms/">CodeMeta context</a>. Almost
+any additional codemeta field can be added to and read from the
+DESCRIPTION into a <code>codemeta.json</code> file (see
+<code>codemetar:::additional_codemeta_terms</code> for a list).</p>
+<p>CRAN requires that you prefix any additional such terms to indicate
+the use of <code>schema.org</code> explicitly,
+e.g. <code>keywords</code> would be specified in a DESCRIPTION file
+as:</p>
 <pre><code>X-schema.org-keywords: metadata, codemeta, ropensci, citation, credit, linked-data</code></pre>
-<p>Where applicable, these will override values otherwise guessed from the source repository. Use comma-separated lists to separate multiple values to a property, e.g. keywords.</p>
-<p>See the <a href="https://github.com/ropensci/codemetar/blob/master/DESCRIPTION">DESCRIPTION</a> file of the <code>codemetar</code> package for an example.</p>
+<p>Where applicable, these will override values otherwise guessed from
+the source repository. Use comma-separated lists to separate multiple
+values to a property, e.g. keywords.</p>
+<p>See the <a href="https://github.com/ropensci/codemetar/blob/master/DESCRIPTION">DESCRIPTION</a>
+file of the <code>codemetar</code> package for an example.</p>
 </div>
 <div id="set-the-branch-that-codemetar-references" class="section level3">
 <h3>Set the branch that codemetar references</h3>
-<p>There are a number of places that codemetar will reference a github branch if your code is hosted on github (e.g. for release notes, readme, etc.). By default, codemetar will use the name “master” but you can change that to whatever your default branch is by setting the option “codemeta_branch” (e.g. <code>options(codemeta_branch = &quot;main&quot;)</code> before calling <code>write_codemeta()</code> to use the branch named “main” as the default branch).</p>
+<p>There are a number of places that codemetar will reference a github
+branch if your code is hosted on github (e.g. for release notes, readme,
+etc.). By default, codemetar will use the name “master” but you can
+change that to whatever your default branch is by setting the option
+“codemeta_branch” (e.g. <code>options(codemeta_branch = &quot;main&quot;)</code>
+before calling <code>write_codemeta()</code> to use the branch named
+“main” as the default branch).</p>
 </div>
 </div>
 <div id="going-further" class="section level2">
 <h2>Going further</h2>
-<p>Check out all the <a href="https://docs.ropensci.org/codemetar/articles/index.html">codemetar vignettes</a> for tutorials on other cool stuff you can do with codemeta and json-ld.</p>
-<p>A new feature is the creation of a minimal schemaorg.json for insertion on your website’s webpage for Search Engine Optimization, when the <code>write_minimeta</code> argument of <code>write_codemeta()</code> is <code>TRUE</code>.</p>
-<p>You could e.g. use the code below in a chunk in README.Rmd with <code>results=&quot;asis&quot;</code>.</p>
+<p>Check out all the <a href="https://docs.ropensci.org/codemetar/articles/index.html">codemetar
+vignettes</a> for tutorials on other cool stuff you can do with codemeta
+and json-ld.</p>
+<p>A new feature is the creation of a minimal schemaorg.json for
+insertion on your website’s webpage for Search Engine Optimization, when
+the <code>write_minimeta</code> argument of
+<code>write_codemeta()</code> is <code>TRUE</code>.</p>
+<p>You could e.g. use the code below in a chunk in README.Rmd with
+<code>results=&quot;asis&quot;</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&#39;&lt;script type=&quot;application/ld+json&quot;&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="st">      {glue::glue_collapse(readLines(&quot;schemaorg.json&quot;), sep = &quot;</span><span class="sc">\n</span><span class="st">&quot;)}</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;/script&gt;&#39;</span>)</span></code></pre></div>
-<p>Refer to <a href="https://developers.google.com/search/docs">Google documentation</a> for more guidance.</p>
+<p>Refer to <a href="https://developers.google.com/search/docs">Google
+documentation</a> for more guidance.</p>
 </div>
 </div>
 

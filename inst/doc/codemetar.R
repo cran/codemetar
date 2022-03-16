@@ -8,8 +8,8 @@ if(grepl("windows", tolower(Sys.info()[["sysname"]])))
 #  install.packages("codemetar")
 
 ## ----gh-installation, eval = FALSE--------------------------------------------
-#  # install.packages("remotes")
-#  remotes::install_github("ropensci/codemetar", ref = "dev")
+#  # install.packages("devtools")
+#  devtools::install_github("ropensci/codemetar")
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
 #  codemetar::write_codemeta()
