@@ -1,6 +1,6 @@
-1e9b6b1d4f73e0af6f2f918caada1953 *DESCRIPTION
+f53e7d631e859f714d5d024b2d83927d *DESCRIPTION
 36c80de4065b7c172db6c6e2784ae7a2 *NAMESPACE
-9599a24105dd192ee9d8b361151c8854 *NEWS.md
+5bde422d96c6210e353534e315f4803d *NEWS.md
 e76bc397866986e2170ae5fffcd9f047 *R/codemeta_readme.R
 1cedc3fc131a2dad42670e3dc850dcba *R/codemetar-package.R
 c55cca41fe54c87c67507d22475dc944 *R/create_codemeta.R
@@ -16,9 +16,9 @@ abba8465de20cb328447e4487234079b *R/parse_people.R
 4c3cb3b7b3fc6fbb4a72a345bbe74b55 *R/spdx_license.R
 379d6b9596ad7f658f548ce9dbf64ba6 *R/utils-pipe.R
 6e334d447691912a6c2f3e4946d9548a *R/utils.R
-43d650b3b000fe27321da406f8d06d7d *R/write_codemeta.R
+6bde752f99f7fd2897dda44a816ec3c9 *R/write_codemeta.R
 0650ca0072b1db8b44081f0ce859ae2d *README.md
-cf56dd68250375a088aa0fc7d4004971 *build/vignette.rds
+922ea3d7478575a5dcecd2cc4bf048c4 *build/vignette.rds
 aab48aa7ca53e093a8df3b8be16c1607 *inst/codemeta.json
 8b2490931f35aab19f2e399f091c5a01 *inst/deprecated/codemeta_validate.R
 e8b2a2e251eae611b49af50404300258 *inst/deprecated/crosswalk.R
@@ -26,7 +26,7 @@ e8b2a2e251eae611b49af50404300258 *inst/deprecated/crosswalk.R
 c78c8e8559f0521d0790ca72cf2f2379 *inst/deprecated/test-crosswalk.R
 73d06813f7dcdb58f8f503160a45226e *inst/doc/codemetar.R
 a10b6c182ed8a56c2234105f69c594c2 *inst/doc/codemetar.Rmd
-88bd90e189453ca26d19497b2b581560 *inst/doc/codemetar.html
+34b4403b5609a4b17294702f03c60880 *inst/doc/codemetar.html
 a1c21d6ed68aa982778a70842a8fb68e *inst/examples/CITATION_ex
 a527bb192d20587d376533ebcd04a48a *inst/examples/CITATION_ex2
 01dae3dfab9b1cbb035cd129e1d81c94 *inst/examples/CITATION_osmdata
@@ -72,7 +72,7 @@ f15c493e82d7acf8b4068c21c568cdeb *inst/schema/frame_schema.json
 16950b345fb069a69aade1d04519c1c9 *inst/schemaorg.json
 b406e703355fbc2e0ad73e5ea464d0a4 *inst/templates/codemeta-github-actions.yml
 2442c63f2ee4255e1fd19a32532a9c35 *inst/templates/description-codemetajson-pre-commit.sh
-45cfc66e2eb6f3f6254bb5a586141706 *man/codemetar-package.Rd
+bb21a6740e0f8db35c6c420ee76a56bd *man/codemetar-package.Rd
 cba44dfc5f43c16378bf8f96ed750020 *man/create_codemeta.Rd
 de33d27cece355a5b60d720e8ba57d74 *man/extract_badges.Rd
 92db7ab4458e330d6b5f9bdd47f04ed2 *man/give_opinions.Rd
@@ -85,7 +85,7 @@ b2143509de592eb41250927ad9706ad2 *man/rmdhunks/goals.Rmd
 166744667c251d53aac287bdce0f04b9 *man/rmdhunks/minimeta.Rmd
 f6faa66691a02a8a338b6384418b2067 *man/rmdhunks/uptodate.Rmd
 c2c50123a0214c8089a4aa900d37c152 *man/rmdhunks/whybother.Rmd
-ce7c62447d49c1467e529bbdf24fd7f7 *man/write_codemeta.Rd
+1ef979ae0ff67b4374e5c9b33e7f828a *man/write_codemeta.Rd
 d3ef6d709b8eeaa08a797d2ed26ceec6 *tests/testthat.R
 9748e9b595974850b2409d12a20c8812 *tests/testthat/test-create_codemeta.R
 bb21833c49b99f45be263fb177cd3328 *tests/testthat/test-extract_badges.R
