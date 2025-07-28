@@ -1,7 +1,7 @@
 Type: Package
 Package: codemetar
 Title: Generate 'CodeMeta' Metadata for R Packages
-Version: 0.3.5
+Version: 0.3.6
 Authors@R: 
     c(person(given = "Carl",
              family = "Boettiger",
@@ -22,7 +22,7 @@ Authors@R:
              comment = c(ORCID = "0000-0002-2815-0399")),
       person(given = "rOpenSci",
              role = "fnd",
-             comment = "https://ropensci.org/"),
+             comment = c(ROR = "019jywm96")),
       person(given = "Katrin",
              family = "Leinweber",
              role = "ctb",
@@ -77,28 +77,31 @@ Suggests: withr, covr, details, dplyr (>= 0.7.0), jsonld, jsonvalidate,
         knitr, printr, rmarkdown, testthat (>= 3.0.0), usethis
 VignetteBuilder: knitr
 Encoding: UTF-8
-RoxygenNote: 7.2.1.9000
+RoxygenNote: 7.3.2
 X-schema.org-isPartOf: https://ropensci.org
 X-schema.org-keywords: metadata, codemeta, ropensci, citation, credit,
         linked-data
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2022-09-02 17:09:55 UTC; cboettig
-Author: Carl Boettiger [aut, cre, cph]
-    (<https://orcid.org/0000-0002-1642-628X>),
-  Anna Krystalli [rev, ctb] (<https://orcid.org/0000-0002-2378-4915>),
-  Toph Allen [rev] (<https://orcid.org/0000-0003-4580-091X>),
-  Maëlle Salmon [ctb, aut] (<https://orcid.org/0000-0002-2815-0399>),
-  rOpenSci [fnd] (https://ropensci.org/),
-  Katrin Leinweber [ctb] (<https://orcid.org/0000-0001-5135-5758>),
-  Noam Ross [ctb] (<https://orcid.org/0000-0002-2136-0000>),
+Packaged: 2025-07-28 18:04:37 UTC; cboettig
+Author: Carl Boettiger [aut, cre, cph] (ORCID:
+    <https://orcid.org/0000-0002-1642-628X>),
+  Anna Krystalli [rev, ctb] (ORCID:
+    <https://orcid.org/0000-0002-2378-4915>),
+  Toph Allen [rev] (ORCID: <https://orcid.org/0000-0003-4580-091X>),
+  Maëlle Salmon [ctb, aut] (ORCID:
+    <https://orcid.org/0000-0002-2815-0399>),
+  rOpenSci [fnd] (ROR: <https://ror.org/019jywm96>),
+  Katrin Leinweber [ctb] (ORCID: <https://orcid.org/0000-0001-5135-5758>),
+  Noam Ross [ctb] (ORCID: <https://orcid.org/0000-0002-2136-0000>),
   Arfon Smith [ctb],
-  Jeroen Ooms [ctb] (<https://orcid.org/0000-0002-4035-0289>),
-  Sebastian Meyer [ctb] (<https://orcid.org/0000-0002-1791-9449>),
-  Michael Rustler [ctb] (<https://orcid.org/0000-0003-0647-7726>),
-  Hauke Sonnenberg [ctb] (<https://orcid.org/0000-0001-9134-2871>),
-  Sebastian Kreutzer [ctb] (<https://orcid.org/0000-0002-0734-2199>),
-  Thierry Onkelinx [ctb] (<https://orcid.org/0000-0001-8804-4216>)
+  Jeroen Ooms [ctb] (ORCID: <https://orcid.org/0000-0002-4035-0289>),
+  Sebastian Meyer [ctb] (ORCID: <https://orcid.org/0000-0002-1791-9449>),
+  Michael Rustler [ctb] (ORCID: <https://orcid.org/0000-0003-0647-7726>),
+  Hauke Sonnenberg [ctb] (ORCID: <https://orcid.org/0000-0001-9134-2871>),
+  Sebastian Kreutzer [ctb] (ORCID:
+    <https://orcid.org/0000-0002-0734-2199>),
+  Thierry Onkelinx [ctb] (ORCID: <https://orcid.org/0000-0001-8804-4216>)
 Maintainer: Carl Boettiger <cboettig@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-09-02 17:30:02 UTC
+Date/Publication: 2025-07-28 18:20:07 UTC

@@ -5,29 +5,29 @@ if(grepl("windows", tolower(Sys.info()[["sysname"]])))
   knitr::opts_chunk$set(comment="", error =TRUE)
 
 ## ----cran-installation, eval = FALSE------------------------------------------
-#  install.packages("codemetar")
+# install.packages("codemetar")
 
 ## ----gh-installation, eval = FALSE--------------------------------------------
-#  # install.packages("devtools")
-#  devtools::install_github("ropensci/codemetar")
+# # install.packages("devtools")
+# devtools::install_github("ropensci/codemetar")
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  codemetar::write_codemeta()
+# codemetar::write_codemeta()
 
 ## ----echo=FALSE, eval = identical(Sys.getenv("NOT_CRAN"), "true")-------------
-#  pkg <- "../.."
-#  codemetar::write_codemeta(pkg = pkg)
+# pkg <- "../.."
+# codemetar::write_codemeta(pkg = pkg)
 
 ## ----eval = identical(Sys.getenv("NOT_CRAN"), "true")-------------------------
-#  library("magrittr")
-#  "../../codemeta.json" %>%
-#    details::details(summary = "codemetar's codemeta.json",
-#                     lang = "json")
+# library("magrittr")
+# "../../codemeta.json" %>%
+#   details::details(summary = "codemetar's codemeta.json",
+#                    lang = "json")
 
 ## ----echo = FALSE, results='hide', eval = identical(Sys.getenv("NOT_CRAN"), "true")----
-#  file.remove(file.path(pkg, "codemeta.json"))
+# file.remove(file.path(pkg, "codemeta.json"))
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 details::details(system.file("templates", "codemeta-github-actions.yml", package = "codemetar"), 
                  summary = "click here to see the workflow",
                  lang = "yaml")
