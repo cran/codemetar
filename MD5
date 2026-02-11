@@ -1,6 +1,6 @@
-a8a062d1785d1f8ba4328c809e3cbdbe *DESCRIPTION
+922d88f1dfb02fb8ac060acd837d0b5b *DESCRIPTION
 36c80de4065b7c172db6c6e2784ae7a2 *NAMESPACE
-53ec4a4c775c7123a64d8325f8bdbe6a *NEWS.md
+ebe1923068d72ba9732b904ec5e6f5b6 *NEWS.md
 e76bc397866986e2170ae5fffcd9f047 *R/codemeta_readme.R
 1cedc3fc131a2dad42670e3dc850dcba *R/codemetar-package.R
 c55cca41fe54c87c67507d22475dc944 *R/create_codemeta.R
@@ -18,7 +18,7 @@ abba8465de20cb328447e4487234079b *R/parse_people.R
 6e334d447691912a6c2f3e4946d9548a *R/utils.R
 0beb11ad7ee4fd05e060d64eb0e58d15 *R/write_codemeta.R
 4ce70297b9da30f5afbd29f4afde0bde *README.md
-36fd1f74fa911cd6e5cc6c7371beb665 *build/vignette.rds
+b8af78c5f1cdc922420679fc1c6449ca *build/vignette.rds
 aab48aa7ca53e093a8df3b8be16c1607 *inst/codemeta.json
 8b2490931f35aab19f2e399f091c5a01 *inst/deprecated/codemeta_validate.R
 e8b2a2e251eae611b49af50404300258 *inst/deprecated/crosswalk.R
@@ -26,7 +26,7 @@ e8b2a2e251eae611b49af50404300258 *inst/deprecated/crosswalk.R
 c78c8e8559f0521d0790ca72cf2f2379 *inst/deprecated/test-crosswalk.R
 e86d5009354a59a230d498afbf1bd5a9 *inst/doc/codemetar.R
 a10b6c182ed8a56c2234105f69c594c2 *inst/doc/codemetar.Rmd
-3002635053378becdf25eab27b0ed801 *inst/doc/codemetar.html
+6359b000c8fbd8784fae6d770e296f7a *inst/doc/codemetar.html
 a1c21d6ed68aa982778a70842a8fb68e *inst/examples/CITATION_ex
 a527bb192d20587d376533ebcd04a48a *inst/examples/CITATION_ex2
 01dae3dfab9b1cbb035cd129e1d81c94 *inst/examples/CITATION_osmdata
@@ -92,7 +92,7 @@ bb21833c49b99f45be263fb177cd3328 *tests/testthat/test-extract_badges.R
 b4532576549d24cba28668a10c7cca88 *tests/testthat/test-frame.R
 6ba0c7f90597c8fa4ad845a685d20e36 *tests/testthat/test-get_message.R
 7475072bfd2382e88a5b43a91dbf67a2 *tests/testthat/test-get_url.R
-9c12a66bfc70ea8abae4a79137338172 *tests/testthat/test-give_opinions.R
+bb375850d3e56950790d87390645d5b8 *tests/testthat/test-give_opinions.R
 df88f7a383acf3a1f518c0b09eda2e6c *tests/testthat/test-guess_metadata.R
 25fdcff3b0a022afc4232a8ac6ca22e6 *tests/testthat/test-spdx_license.R
 36efeab3a2936f7e2c85706ad1031eb0 *tests/testthat/test-utils.R
